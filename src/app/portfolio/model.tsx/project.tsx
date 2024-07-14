@@ -4,4 +4,10 @@ export interface ProjectCardProps {
   subtitle: string;
   link?: string;
   image: string;
+  categories?: ProjectSkill[]
+}
+
+export type ProjectSkill = {
+    name: string;
+    avatar: string;
 }

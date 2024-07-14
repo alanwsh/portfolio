@@ -1,12 +1,15 @@
 import { Description } from "@mui/icons-material";
 import {
+  Avatar,
   Button,
   Card,
   CardActions,
   CardContent,
   CardMedia,
+  Chip,
   Grid,
   Icon,
+  Stack,
   Typography,
 } from "@mui/material";
 import Link from "next/link";
@@ -18,18 +21,17 @@ export default function ProjectCard({
   title,
   subtitle,
   link,
-  image
+  image,
+  categories,
 }: ProjectCardProps) {
-
   return (
-    <Grid item xs={12} sm={4} md={4}  style={{ padding: '32px 32px' }}>
+    <Grid item xs={12} sm={4} md={4} style={{ padding: "32px 32px" }}>
       <Card className="rounded-lg">
         <div className="relative">
           <div
             className="bg-black"
             style={{
-              backgroundImage:
-                `url(${image})`,
+              backgroundImage: `url(${image})`,
               opacity: 0.2,
               height: 250,
               backgroundRepeat: "no-repeat",
@@ -38,11 +40,8 @@ export default function ProjectCard({
             }}
           />
           <div className="absolute inset-0 flex items-center justify-center">
-            <Typography
-              variant="h1"
-              className="font-bold uppercase"
-            >
-            <span dangerouslySetInnerHTML={{ __html: name }}></span>
+            <Typography variant="h1" className="font-bold uppercase">
+              <span dangerouslySetInnerHTML={{ __html: name }}></span>
             </Typography>
           </div>
         </div>
@@ -58,6 +57,20 @@ export default function ProjectCard({
           <Typography variant="body1" color="text.secondary">
             {subtitle}
           </Typography>
+          <Stack direction="row" spacing={1} className="my-2">
+            {categories?.map((category, index) => (
+              <Chip
+                key={index}
+                className="p-2 text-lg"
+                avatar={
+                  <Avatar
+                    src={category.avatar}
+                  />
+                }
+                label={category.name}
+              />
+            ))}
+          </Stack>
         </CardContent>
         <CardActions>
           <Button size="small">See More</Button>
