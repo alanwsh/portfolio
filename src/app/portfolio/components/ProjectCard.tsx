@@ -1,20 +1,17 @@
-import { Description } from "@mui/icons-material";
 import {
   Avatar,
   Button,
   Card,
   CardActions,
   CardContent,
-  CardMedia,
   Chip,
   Grid,
-  Icon,
   Stack,
   Typography,
 } from "@mui/material";
 import Link from "next/link";
 import LinkIcon from "@mui/icons-material/Link";
-import { ProjectCardProps } from "../../model.tsx/project";
+import { Project } from "@/models/projects";
 
 export default function ProjectCard({
   name,
@@ -23,7 +20,7 @@ export default function ProjectCard({
   link,
   image,
   categories,
-}: ProjectCardProps) {
+}: Project) {
   return (
     <Grid item xs={12} sm={4} md={4} style={{ padding: "32px 32px" }}>
       <Card className="rounded-lg">

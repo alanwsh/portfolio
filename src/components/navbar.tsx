@@ -48,14 +48,14 @@ export default function NavBar() {
           icon: <BusinessCenter />,
           title: "Experiences",
           description: "My experience in industry",
-          href: 'portfolio#experience',
+          href: '/portfolio/experience',
         },
         {
           icon: <Apps />,
           title: "Projects",
           description:
             "Projects I ever worked on including full time and freelance",
-          href: '',
+          href: '/portfolio/project',
         },
         {
           icon: <IntegrationInstructions />,

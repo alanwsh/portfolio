@@ -5,7 +5,7 @@ import { Button } from "@mui/material";
 import { LinkedIn, GitHub, Email } from "@mui/icons-material";
 import Welcome from "@/components/info/welcome";
 import SkillSet from "@/components/info/skill";
-import Experiences from "./components/experience";
+import Experiences from "../components/experience";
 
 export default function Home() {
   return (
