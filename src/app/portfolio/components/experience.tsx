@@ -1,20 +1,17 @@
-import * as React from "react";
+import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
-import {
-  KeyboardArrowUp,
-  KeyboardArrowDown,
-  Work,
-} from "@mui/icons-material";
+import { KeyboardArrowUp, KeyboardArrowDown, Work } from "@mui/icons-material";
 import { Grid, StepIconProps } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import moment from "moment";
 import ProjectCard from "./ProjectCard";
-import { experiences } from "@/models/experiences";
+import { Experience, experiences } from "@/models/experiences";
+import { Project, Projects as allProjects } from "@/models/projects";
 export default function Experiences() {
   const StepIcon = styled("div")<{ active: boolean }>(({ theme, active }) => ({
     color: active ? theme.palette.primary.main : "lightgrey",
@@ -31,7 +28,19 @@ export default function Experiences() {
     );
   };
 
-  const [activeStep, setActiveStep] = React.useState(1);
+  const [activeStep, setActiveStep] = useState<number>(1);
+  const [experience, setExperience] = useState<Experience>();
+  const [projects, setProjects] = useState<Project[]>([]);
+
+  useEffect(() => {
+    setExperience(experiences.find((exp, index) => index + 1 === activeStep));
+  }, [activeStep]);
+
+  useEffect(() => {
+    setProjects(
+      allProjects.filter((project) => project.experience_id === experience?.id)
+    );
+  }, [experience?.id]);
 
   const _handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -117,14 +126,14 @@ export default function Experiences() {
           </Box>
         </Grid>
         <Grid item xs={8} className="flex justify-center flex-col px-4">
-          {experiences[activeStep - 1]?.content}
+          {experience?.content}
         </Grid>
         <div className="px-4 bg-gray-100 mt-12 pt-8 w-full">
           <Typography variant="h4" className="text-center font-bold">
             Projects that I worked on
           </Typography>
           <Grid container spacing={8} className="py-2 m-0 w-full">
-            {experiences[activeStep - 1].projects.map((project, index) => (
+            {projects?.map((project, index) => (
               <ProjectCard key={index} {...project} />
             ))}
           </Grid>
