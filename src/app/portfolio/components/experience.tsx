@@ -67,7 +67,9 @@ export default function Experiences() {
 
   return (
     <section className="flex flex-col items-center justify-between">
-      <h3 className="text-4xl font-bold mb-6">Work Experiences</h3>
+      <Typography variant="h5" className="text-center font-bold">
+        Work Experiences
+      </Typography>
       <Grid container spacing={3}>
         <Grid item xs={4}>
           <Box className="relative rounded-full bg-primary-100 p-20 overflow-hidden mt-4 mx-6">
@@ -85,7 +87,7 @@ export default function Experiences() {
                     >
                       <div className="ml-3">
                         <Typography
-                          variant="h5"
+                          variant="h6"
                           className="capitalize font-bold"
                         >
                           {step.title}
@@ -129,7 +131,7 @@ export default function Experiences() {
           {experience?.content}
         </Grid>
         <div className="px-4 bg-gray-100 mt-12 pt-8 w-full">
-          <Typography variant="h4" className="text-center font-bold">
+          <Typography variant="h5" className="text-center font-bold">
             Projects that I worked on
           </Typography>
           <Grid container spacing={8} className="py-2 m-0 w-full">

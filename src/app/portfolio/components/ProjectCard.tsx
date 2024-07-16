@@ -45,7 +45,7 @@ export default function ProjectCard({
   categories,
   details,
   color = "primary",
-}: Project & { color?: ColorKey }) {
+}: Project ) {
   const [open, setOpen] = useState(false);
 
   const colorClasses = {
@@ -91,13 +91,13 @@ export default function ProjectCard({
             }}
           />
           <div className="absolute inset-0 flex items-center justify-center">
-            <Typography className="text-4xl font-bold uppercase md:text-7xl">
+            <Typography className="text-4xl font-bold uppercase md:text-6xl">
               <span className={theme.text}>{name} </span>
             </Typography>
           </div>
         </div>
         <CardContent className="p-8">
-          <Typography gutterBottom variant="h5" component="div">
+          <Typography gutterBottom variant="h6" component="div">
             {title}
             {link && (
               <Link href={link} target="_blank">
@@ -105,7 +105,7 @@ export default function ProjectCard({
               </Link>
             )}
           </Typography>
-          <Typography variant="body1" color="text.secondary">
+          <Typography variant="body2" color="text.secondary">
             {subtitle}
           </Typography>
           <Stack
@@ -119,16 +119,16 @@ export default function ProjectCard({
               ?.map((category, index) => (
                 <Chip
                   key={category.id}
-                  className="p-2 text-lg"
+                  className="p-1 text-md"
                   avatar={<Avatar src={category.avatar} />}
                   label={category.name}
                 />
               ))}
           </Stack>
-          <Typography variant="body1" className="mt-4">
+          <Typography variant="body2" className="mt-4">
             Highlighted Contributions:
           </Typography>
-          <Typography className="font-bold">{contributions}</Typography>
+          <Typography className="font-bold mt-2">{contributions}</Typography>
         </CardContent>
         <CardActions>
           {details && (

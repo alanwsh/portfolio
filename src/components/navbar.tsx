@@ -61,7 +61,7 @@ export default function NavBar() {
           icon: <IntegrationInstructions />,
           title: "Skills",
           description: "Languages & tools I use",
-          href: '',
+          href: '/portfolio/skills',
         },
         {
           icon: <School />,
@@ -80,7 +80,7 @@ export default function NavBar() {
 
   return (
     <nav
-      className="mx-auto flex max-w-7xl items-center justify-between p-3 lg:px-8"
+      className="mx-auto flex max-w-7xl items-center justify-between p-1 lg:px-8"
       aria-label="Global"
     >
       <div className="flex lg:flex-1">
@@ -93,7 +93,7 @@ export default function NavBar() {
             width={120}
             height={100}
           />
-          <span className="text-gray-900 text-2xl font-semibold">ALAN</span>
+          <span className="text-gray-900 text-md font-semibold">ALAN</span>
         </Link>
       </div>
       <div className="flex lg:hidden">
@@ -123,7 +123,7 @@ export default function NavBar() {
           return route.href ? (
             <Link key={index} passHref href={route.href}>
               <Button
-                className="text-xl font-semibold leading-6 text-gray-900"
+                className="text-md font-semibold leading-6 text-gray-900"
                 style={{ textTransform: "none" }}
               >
                 {route.title}
@@ -132,7 +132,7 @@ export default function NavBar() {
           ) : (
             <React.Fragment key={index}>
               <Button
-                className="text-xl font-semibold leading-6 text-gray-900"
+                className="text-md font-semibold leading-6 text-gray-900"
                 onClick={_handleClick}
                 style={{ textTransform: "none" }}
                 endIcon={<KeyboardArrowDown />}

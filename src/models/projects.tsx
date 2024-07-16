@@ -1,3 +1,5 @@
+import { ColorKey } from "./color";
+
 export interface Project {
   experience_id?: Number;
   name: string;
@@ -8,7 +10,7 @@ export interface Project {
   image: string;
   categories?: number[];
   details?: ProjectDetailSection[];
-  color?: string;
+  color?: ColorKey;
 }
 
 interface ProjectDetailSection {
