@@ -73,13 +73,13 @@ export default function Experiences() {
           <Box className="relative rounded-full bg-primary-100 p-20 overflow-hidden mt-4 mx-6">
             <Box className="overflow-auto h-full w-full mx-6 flex">
               <Stepper activeStep={activeStep} orientation="vertical">
-                {experiences.map((step, index) => (
+                {experiences.map((step, experience_index) => (
                   <Step key={step.title}>
                     <StepLabel
                       StepIconComponent={() => (
                         <StepIconComponent
                           icon={Work}
-                          active={index + 1 === activeStep}
+                          active={experience_index + 1 === activeStep}
                         />
                       )}
                     >
@@ -134,7 +134,7 @@ export default function Experiences() {
           </Typography>
           <Grid container spacing={8} className="py-2 m-0 w-full">
             {projects?.map((project, index) => (
-              <ProjectCard key={index} {...project} />
+              <ProjectCard key={`${experience?.id}_${index}`} {...project} />
             ))}
           </Grid>
         </div>

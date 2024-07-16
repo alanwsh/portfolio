@@ -6,6 +6,7 @@ const config: Config = {
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/app/**/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
@@ -37,6 +38,21 @@ const config: Config = {
           700: '#cc6d00',   // Dark shade for text
           800: '#b36000',   // Darker shade for borders
           900: '#994c00',   // Darkest shade for text and borders
+        },
+        red: {
+          DEFAULT: '#e3342f', // Base red color
+          light: '#ef5753',   // Lighter shade for hover backgrounds
+          dark: '#cc1f1a',    // Darker shade for emphasis
+          50: '#ffeded',      // Very light shade for backgrounds
+          100: '#ffd2d2',     // Light shade for hover backgrounds
+          200: '#ffb3b3',     // Light shade for borders
+          300: '#ff9393',     // Light shade for text
+          400: '#ff7373',     // Base shade for main elements
+          500: '#ff5353',     // Default shade (base)
+          600: '#cc4242',     // Darker shade for emphasis
+          700: '#993131',     // Dark shade for text
+          800: '#662121',     // Darker shade for borders
+          900: '#331010',     // Darkest shade for text and borders
         },
       },
       backgroundImage: {
