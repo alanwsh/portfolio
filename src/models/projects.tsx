@@ -11,6 +11,7 @@ export interface Project {
   categories?: number[];
   details?: ProjectDetailSection[];
   color?: ColorKey;
+  recent?: boolean;
 }
 
 interface ProjectDetailSection {
@@ -57,6 +58,7 @@ export const Projects: Project[] = [
         ],
       },
     ],
+    recent: true,
   },
   {
     experience_id: 1,
@@ -69,6 +71,7 @@ export const Projects: Project[] = [
     image: "/novelleap.png",
     contributions: "Entire application is designed and developed only by myself from scratch",
     categories: [1, 2, 4],
+    recent: true,
   },
   {
     experience_id: 1,
@@ -104,6 +107,7 @@ export const Projects: Project[] = [
     image: "https://app.fixx-it.my/images/logo.png",
     contributions: "Developed a complete mobile application and distributed it to various OS app stores. Managed several back-office modules, including chat, residence management, and services (appointments, contracts, etc.), and integrated the PayEx payment gateway",
     categories: [2, 4, 6],
+    recent: true,
   },
   {
     name: 'Wewill',

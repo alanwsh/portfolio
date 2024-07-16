@@ -80,8 +80,9 @@ export default function NavBar() {
 
   return (
     <nav
-      className="mx-auto flex max-w-7xl items-center justify-between p-1 lg:px-8"
+      className="mx-auto flex items-center justify-between p-1 lg:px-8 bg-white w-full rounded-sm"
       aria-label="Global"
+      style={{position: 'sticky', top: 0, zIndex: 999}}
     >
       <div className="flex lg:flex-1">
         <Link href="/" className="-m-1.5 p-1.5 flex items-center">
