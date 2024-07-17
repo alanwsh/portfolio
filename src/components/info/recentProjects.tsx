@@ -24,7 +24,7 @@ export default function RecentProjects() {
   }, []);
 
   return (
-    <section className="flex items-center justify-between p-6 md:p-12 bg-gray-100">
+    <section className="flex items-center justify-between p-6 md:p-12">
       <div className="w-full">
         <h3 className="text-2xl font-bold mb-6">My Recent Projects</h3>
         <Grid container>

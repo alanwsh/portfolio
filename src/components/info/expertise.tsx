@@ -14,12 +14,12 @@ import Image from "next/image";
 
 export default function Expertise() {
   return (
-    <section className="flex items-center justify-between p-6 md:p-12">
+    <section className="flex items-center justify-between p-6 md:p-12 bg-gray-100">
       <div className="w-full">
         <h3 className="text-2xl font-bold mb-6">My Expertises</h3>
         <Grid container>
           {expertises.map((exp, index) => (
-            <Grid item xs={6} className="p-5" key={index}>
+            <Grid item xs={12} md={6} className="p-5" key={index}>
               <Card variant="outlined" className="p-6 rounded-xl h-full">
                 <Grid container>
                   <Grid xs={12} md={4} item className="flex items-center">

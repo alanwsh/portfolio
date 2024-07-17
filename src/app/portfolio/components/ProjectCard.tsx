@@ -45,7 +45,7 @@ export default function ProjectCard({
   categories,
   details,
   color = "primary",
-}: Project ) {
+}: Project) {
   const [open, setOpen] = useState(false);
 
   const colorClasses = {
@@ -90,9 +90,9 @@ export default function ProjectCard({
               backgroundPosition: "center",
             }}
           />
-          <div className="absolute inset-0 flex items-center justify-center">
+          <div className="absolute inset-0 flex items-center justify-center text-center">
             <Typography className="text-4xl font-bold uppercase md:text-6xl">
-              <span className={theme.text}>{name} </span>
+              <span className={theme.text}>{name}</span>
             </Typography>
           </div>
         </div>
