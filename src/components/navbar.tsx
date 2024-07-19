@@ -10,64 +10,88 @@ import {
   Apps,
   IntegrationInstructions,
   School,
+  ExpandLess,
+  ExpandMore,
 } from "@mui/icons-material";
 import Image from "next/image";
 import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
+import {
+  Box,
+  Collapse,
+  Divider,
+  Drawer,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+} from "@mui/material";
 
 export default function NavBar() {
+  const router = useRouter();
+
   type MenuItemType = {
-    icon: ReactNode,
+    icon: ReactNode;
     title: String;
     description?: String;
     href: string;
   };
 
+  type SubMenu = {
+    open: boolean;
+    list: Array<MenuItemType>;
+  };
+
   type MenuType = {
     title: String;
     href?: string;
-    menu?: Array<MenuItemType>;
+    menu?: SubMenu;
   };
 
   const _handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
-  useEffect(() => {
-
-
-  }, )
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [routes, setRoutes] = useState<Array<MenuType>>([
     { title: "Home", href: "/" },
     {
       title: "Portfolio",
-      menu: [
-        {
-          icon: <BusinessCenter />,
-          title: "Experiences",
-          description: "My experience in industry",
-          href: '/portfolio/experience',
-        },
-        {
-          icon: <Apps />,
-          title: "Projects",
-          description:
-            "Projects I ever worked on including full time and freelance",
-          href: '/portfolio/project',
-        },
-        {
-          icon: <IntegrationInstructions />,
-          title: "Skills",
-          description: "Languages & tools I use",
-          href: '/portfolio/skills',
-        },
-        {
-          icon: <School />,
-          title: "Education",
-          href: '',
-        },
-      ],
+      menu: {
+        open: false,
+        list: [
+          {
+            icon: <BusinessCenter />,
+            title: "Experiences",
+            description: "My experience in industry",
+            href: "/portfolio/experience",
+          },
+          {
+            icon: <Apps />,
+            title: "Projects",
+            description:
+              "Projects I ever worked on including full time and freelance",
+            href: "/portfolio/project",
+          },
+          {
+            icon: <IntegrationInstructions />,
+            title: "Skills",
+            description: "Languages & tools I use",
+            href: "/portfolio/skills",
+          },
+          {
+            icon: <School />,
+            title: "Education",
+            href: "",
+          },
+        ],
+      },
     },
     { title: "Mini Games", href: "/about" },
   ]);
@@ -77,11 +101,31 @@ export default function NavBar() {
     setAnchorEl(null);
   };
 
+  const _handleMenuClick = (index: number) => {
+    if (routes[index].href) {
+      router.push(routes[index].href);
+      toggleMenu();
+    } else {
+      setRoutes((prevRoutes) =>
+        prevRoutes.map((route, i) =>
+          i === index && route.menu
+            ? { ...route, menu: { ...route.menu, open: !route.menu.open } }
+            : route
+        )
+      );
+    }
+  };
+
+  const _handleSubmenuClick = (href: string) => {
+    router.push(href);
+    toggleMenu();
+  }
+
   return (
     <nav
       className="mx-auto flex items-center justify-between p-1 lg:px-8 bg-white w-full rounded-sm"
       aria-label="Global"
-      style={{position: 'sticky', top: 0, zIndex: 999}}
+      style={{ position: "sticky", top: 0, zIndex: 999 }}
     >
       <div className="flex">
         <Link href="/" className="-m-1.5 p-1.5 flex items-center">
@@ -100,6 +144,7 @@ export default function NavBar() {
         <button
           type="button"
           className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+          onClick={toggleMenu}
         >
           <span className="sr-only">Open main menu</span>
           <svg
@@ -121,14 +166,15 @@ export default function NavBar() {
       <div className="hidden lg:flex lg:gap-x-12 flex-1 justify-center">
         {routes.map((route, index) => {
           return route.href ? (
-            <Link key={index} passHref href={route.href}>
-              <Button
-                className="text-md font-semibold leading-6 text-gray-900"
-                style={{ textTransform: "none" }}
-              >
-                {route.title}
-              </Button>
-            </Link>
+            <Button
+              className="text-md font-semibold leading-6 text-gray-900"
+              style={{ textTransform: "none" }}
+              onClick={() => {
+                _handleMenuClick(index);
+              }}
+            >
+              {route.title}
+            </Button>
           ) : (
             <React.Fragment key={index}>
               <Button
@@ -148,12 +194,12 @@ export default function NavBar() {
                   "aria-labelledby": "basic-button",
                 }}
               >
-                {route.menu?.map((menu: MenuItemType, i: number) => (
+                {route.menu?.list.map((menu: MenuItemType, i: number) => (
                   <Link href={menu.href} passHref key={i}>
                     <MenuItem onClick={_handleClose}>
                       <div className="group relative flex items-center gap-x-6 p-4 text-sm">
                         <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-                            { menu.icon }
+                          {menu.icon}
                         </div>
                         <div className="flex-auto">
                           <a
@@ -176,143 +222,122 @@ export default function NavBar() {
           );
         })}
       </div>
-      <header className="hidden bg-white">
-        <div className="lg:hidden" role="dialog" aria-modal="true">
-          <div className="fixed inset-0 z-10"></div>
-          <div className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
-            <div className="flex items-center justify-between">
-              <a href="#" className="-m-1.5 p-1.5">
-                <Image
-                  src="/logo.jpg"
-                  alt="Logo"
-                  className="h-20 w-auto"
-                  priority
-                  width={120}
-                  height={100}
-                />
-              </a>
-              <button
-                type="button"
-                className="-m-2.5 rounded-md p-2.5 text-gray-700"
+      <Drawer
+        open={isMenuOpen}
+        onClose={toggleMenu}
+        anchor="right"
+        hideBackdrop={true}
+        disableScrollLock={true}
+      >
+        <Box
+          onKeyDown={toggleMenu}
+          className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm "
+        >
+          <div className="flex items-center justify-between">
+            <a href="#" className="-m-1.5 p-1.5">
+              <Image
+                src="/logo.jpg"
+                alt="Logo"
+                className="h-20 w-auto"
+                priority
+                width={120}
+                height={100}
+              />
+            </a>
+            <button
+              type="button"
+              className="-m-2.5 rounded-md p-2.5 text-gray-700"
+              onClick={toggleMenu}
+            >
+              <span className="sr-only">Close menu</span>
+              <svg
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                aria-hidden="true"
               >
-                <span className="sr-only">Close menu</span>
-                <svg
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6 18L18 6M6 6l12 12"
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          </div>
+          <List>
+            {routes.map((route, index) => (
+              <>
+                <ListItem key={index} disablePadding>
+                  <ListItemButton
+                    onClick={() => {
+                      _handleMenuClick(index);
+                    }}
+                  >
+                    <ListItemText primary={route.title} />
+                    {route.menu &&
+                      (route.menu.open ? <ExpandLess /> : <ExpandMore />)}
+                  </ListItemButton>
+                </ListItem>
+                {route.menu?.open && (
+                  <Collapse in={route.menu.open} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                      {route.menu?.list.map((menu: MenuItemType, i: number) => (
+                          <ListItemButton key={i} onClick={() => { _handleSubmenuClick(menu.href)}}>
+                            <ListItemIcon>{menu.icon}</ListItemIcon>
+                            <ListItemText secondary={menu.title} />
+                          </ListItemButton>
+                      ))}
+                    </List>
+                  </Collapse>
+                )}
+                <Divider />
+              </>
+            ))}
+          </List>
+        </Box>
+        {/* <header className="bg-white">
+          <div className="lg:hidden" role="dialog" aria-modal="true">
+            <div className="fixed inset-0 z-10"></div>
+            <div className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+              <div className="flex items-center justify-between">
+                <a href="#" className="-m-1.5 p-1.5">
+                  <Image
+                    src="/logo.jpg"
+                    alt="Logo"
+                    className="h-20 w-auto"
+                    priority
+                    width={120}
+                    height={100}
                   />
-                </svg>
-              </button>
-            </div>
-            <div className="mt-6 flow-root">
-              <div className="-my-6 divide-y divide-gray-500/10">
-                <div className="space-y-2 py-6">
-                  <div className="-mx-3">
-                    <button
-                      type="button"
-                      className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                      aria-controls="disclosure-1"
-                      aria-expanded="false"
-                    >
-                      Product
-                      <svg
-                        className="h-5 w-5 flex-none"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                    </button>
-                    <div className="mt-2 space-y-2" id="disclosure-1">
-                      <a
-                        href="#"
-                        className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                      >
-                        Analytics
-                      </a>
-                      <a
-                        href="#"
-                        className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                      >
-                        Engagement
-                      </a>
-                      <a
-                        href="#"
-                        className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                      >
-                        Security
-                      </a>
-                      <a
-                        href="#"
-                        className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                      >
-                        Integrations
-                      </a>
-                      <a
-                        href="#"
-                        className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                      >
-                        Automations
-                      </a>
-                      <a
-                        href="#"
-                        className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                      >
-                        Watch demo
-                      </a>
-                      <a
-                        href="#"
-                        className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                      >
-                        Contact sales
-                      </a>
-                    </div>
-                  </div>
-                  <a
-                    href="#"
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                </a>
+                <button
+                  type="button"
+                  className="-m-2.5 rounded-md p-2.5 text-gray-700"
+                  onClick={toggleMenu}
+                >
+                  <span className="sr-only">Close menu</span>
+                  <svg
+                    className="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    aria-hidden="true"
                   >
-                    Features
-                  </a>
-                  <a
-                    href="#"
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                  >
-                    Marketplace
-                  </a>
-                  <a
-                    href="#"
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                  >
-                    Company
-                  </a>
-                </div>
-                <div className="py-6">
-                  <a
-                    href="#"
-                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                  >
-                    Log in
-                  </a>
-                </div>
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
               </div>
             </div>
           </div>
-        </div>
-      </header>
+        </header>{" "} */}
+      </Drawer>
     </nav>
   );
 }

@@ -4,6 +4,7 @@ import { useState } from "react";
 import Fact from "./fact";
 import Image from "next/image";
 import { PieChart, pieArcLabelClasses } from "@mui/x-charts/PieChart";
+import { Element } from "react-scroll";
 
 export default function About() {
   const Hobbies = () => {
@@ -102,31 +103,32 @@ export default function About() {
   const [cardOrder, setCardOrder] = useState(cards);
 
   return (
-    <section className="flex items-center justify-between p-6 md:p-12">
-      <div className="w-full">
-        <h3 className="text-2xl font-bold mb-6">About Me</h3>
-        <Grid container>
-          <Grid item xs={12} xl={6}>
-            <Typography variant="body1">
-              I am a Full Stack Developer based in Kuala Lumpur, Malaysia. I
-              embarked on my programming career in 2021 after earning a degree
-              in Software Engineering from Multimedia University Malaysia.
-            </Typography>
-            <Typography variant="body1" className="my-4">
-              With a total of 3 years of experience in the IT software industry,
-              I have consistently worked on developing responsive and customized
-              websites, APIs and mobile applications to meet various business
-              needs of my clients.
-            </Typography>
-            <Typography variant="body1" className="my-4">
-              I am passionate about coding and enjoy seeing how the software I
-              develop positively impacts users and clients. I am dedicated to
-              continuously improving my skills and staying updated with the
-              latest industry trends to deliver high-quality solutions.
-            </Typography>
-          </Grid>
-          <Grid item xs={12} xl={6}>
-            <Grid container justifyContent="center">
+    <Element name="about">
+      <section className="flex items-center justify-between p-6 md:p-12">
+        <div className="w-full">
+          <h3 className="text-2xl font-bold mb-6">About Me</h3>
+          <Grid container>
+            <Grid item xs={12} xl={6}>
+              <Typography variant="body1">
+                I am a Full Stack Developer based in Kuala Lumpur, Malaysia. I
+                embarked on my programming career in 2021 after earning a degree
+                in Software Engineering from Multimedia University Malaysia.
+              </Typography>
+              <Typography variant="body1" className="my-4">
+                With a total of 3 years of experience in the IT software
+                industry, I have consistently worked on developing responsive
+                and customized websites, APIs and mobile applications to meet
+                various business needs of my clients.
+              </Typography>
+              <Typography variant="body1" className="my-4">
+                I am passionate about coding and enjoy seeing how the software I
+                develop positively impacts users and clients. I am dedicated to
+                continuously improving my skills and staying updated with the
+                latest industry trends to deliver high-quality solutions.
+              </Typography>
+            </Grid>
+            <Grid item xs={12} xl={6}>
+              <Grid container justifyContent="center">
                 {cardOrder.map((card, index) => (
                   <Grid
                     item
@@ -144,10 +146,11 @@ export default function About() {
                     </Fact>
                   </Grid>
                 ))}
+              </Grid>
             </Grid>
           </Grid>
-        </Grid>
-      </div>
-    </section>
+        </div>
+      </section>
+    </Element>
   );
 }

@@ -76,7 +76,7 @@ export default function ProjectCard({
   const { state, setState } = useAppContext();
 
   return (
-    <Grid item xs={12} sm={4} md={4} style={{ padding: "32px 32px" }}>
+    <Grid item xs={12} sm={4} md={4} className="py-2 md:p-8">
       <Card className="rounded-lg h-full">
         <div className="relative">
           <div

@@ -1,7 +1,8 @@
 import { Email, GitHub, LinkedIn } from "@mui/icons-material";
 import { Button } from "@mui/material";
 import Image from "next/image";
-
+import Link from "next/link";
+import { Link as ScrollLink, Element } from "react-scroll";
 export default function Welcome() {
   return (
     <section className="flex flex-col md:flex-row items-center justify-between p-6 md:p-12 bg-gray-100">
@@ -24,20 +25,30 @@ export default function Welcome() {
         <p className="text-md text-gray-700">
           {`Let's connect and create something amazing together!`}
         </p>
-        <div className="flex flex-col md:flex-row items-center mt-6 divide-x divide-black">
-          <Button
-            variant="contained"
-            className="px-9 text-lg mt-0 ml-6"
-            style={{ borderRadius: 20, textTransform: "none" }}
-            size="large"
-            href="/about"
-          >
-            About Me
-          </Button>
-          <div className="flex ml-6 pl-6">
-            <LinkedIn fontSize="large" className="mx-2" />
-            <GitHub fontSize="large" className="mx-2" />
-            <Email fontSize="large" className="mx-2" />
+        <div className="flex flex-col md:flex-row justify-center md:justify-start items-center mt-6 md:divide-x divide-black">
+          <ScrollLink to="about" smooth={true} duration={500}>
+            <Button
+              variant="contained"
+              className="px-9 text-lg mt-0 md:mr-4"
+              style={{ borderRadius: 20, textTransform: "none" }}
+              size="large"
+            >
+              About
+            </Button>
+          </ScrollLink>
+          <div className="flex mt-4 md:mt-0 md:pl-2">
+            <Link
+              target="_blank"
+              href="https://www.linkedin.com/in/wong-shou-hong-aa158a1ab/"
+            >
+              <LinkedIn fontSize="large" className="mx-2" />
+            </Link>
+            <Link target="_blank" href="https://github.com/alanwsh">
+              <GitHub fontSize="large" className="mx-2" />
+            </Link>
+            <Link target="_blank" href="mailto:alan_wsh@hotmail.com">
+              <Email fontSize="large" className="mx-2" />
+            </Link>
           </div>
         </div>
       </div>
