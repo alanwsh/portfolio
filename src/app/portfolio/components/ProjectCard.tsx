@@ -35,7 +35,7 @@ const Transition = React.forwardRef(function Transition(
 
 type ColorKey = "primary" | "alert" | "red";
 
-export default function ProjectCard({
+const ProjectCard: React.FC<Project> = ({
   name,
   title,
   subtitle,
@@ -45,9 +45,8 @@ export default function ProjectCard({
   categories,
   details,
   color = "primary",
-}: Project) {
+}) => {
   const [open, setOpen] = useState(false);
-
   const colorClasses = {
     primary: {
       text: "text-primary",
@@ -76,7 +75,13 @@ export default function ProjectCard({
   const { state, setState } = useAppContext();
 
   return (
-    <Grid item xs={12} sm={4} md={4} className="py-2 md:p-8">
+    <Grid
+      item
+      xs={12}
+      sm={4}
+      md={4}
+      style={{ paddingLeft: 28 }}
+    >
       <Card className="rounded-lg h-full">
         <div className="relative">
           <div
@@ -197,4 +202,5 @@ export default function ProjectCard({
       </Dialog>
     </Grid>
   );
-}
+};
+export default ProjectCard;
