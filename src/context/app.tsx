@@ -2,10 +2,12 @@ import React, { createContext, useContext, useState } from "react";
 
 export interface AppState {
   image?: string;
+  mobile?: boolean
 }
 
 const initialState: AppState = {
   image: undefined,
+  mobile: false
 };
 
 const AppContext = createContext<{

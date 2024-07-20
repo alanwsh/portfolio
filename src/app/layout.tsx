@@ -1,4 +1,4 @@
-
+// src/app/layout.tsx
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -6,9 +6,8 @@ import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
-import NavBar from "@/components/navbar";
 import { Providers } from "./provider";
-import ImageModal from "@/components/imageModal";
+import ClientLayout from "./clientLayout";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,10 +24,8 @@ export default function RootLayout({
     <Providers>
       <html lang="en" className="bg-white">
         <body className={`${inter.className} bg-white`}>
-          <NavBar />
-          {children}
+          <ClientLayout>{children}</ClientLayout>
         </body>
-        <ImageModal />
       </html>
     </Providers>
   );

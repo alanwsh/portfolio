@@ -1,5 +1,3 @@
-import { ProjectSkill } from "./skills";
-
 export type Expertise = {
   icon: string;
   title: string;
