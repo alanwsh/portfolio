@@ -9,7 +9,7 @@ import { KeyboardArrowUp, KeyboardArrowDown, Work } from "@mui/icons-material";
 import { Grid, StepIconProps } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import moment from "moment";
-import ProjectCard from "./ProjectCard";
+import ProjectCard, { LoadingProjectCard } from "./ProjectCard";
 import { Experience, experiences } from "@/models/experiences";
 import { Project, Projects as allProjects } from "@/models/projects";
 import { useAppContext } from "@/context/app";
@@ -34,15 +34,22 @@ export default function Experiences() {
   const [activeStep, setActiveStep] = useState<number>(1);
   const [experience, setExperience] = useState<Experience>();
   const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setExperience(experiences.find((exp, index) => index + 1 === activeStep));
   }, [activeStep]);
 
   useEffect(() => {
-    setProjects(
-      allProjects.filter((project) => project.experience_id === experience?.id)
-    );
+    setLoading(true);
+    setTimeout(() => {
+      setProjects(
+        allProjects.filter(
+          (project) => project.experience_id === experience?.id
+        )
+      );
+      setLoading(false);
+    }, 500);
   }, [experience?.id]);
 
   const _handleNext = () => {
@@ -55,10 +62,11 @@ export default function Experiences() {
 
   const MobileStepper = () => {
     let working_duration = _convertWorkingDuration(
-      experiences[activeStep-1].start_date,
-      experiences[activeStep-1].end_date
+      experiences[activeStep - 1].start_date,
+      experiences[activeStep - 1].end_date
     );
-    return <Box className="relative rounded-3xl bg-primary-100 dark:bg-gray-700 mt-4 mx-6 sticky top-64 flex">
+    return (
+      <Box className="relative rounded-3xl bg-primary-100 dark:bg-gray-700 mt-4 mx-6 sticky top-64 flex">
         <Stepper activeStep={activeStep} orientation="vertical">
           <Step key={experiences[activeStep - 1].title}>
             <StepLabel StepIconComponent={() => null}>
@@ -97,7 +105,8 @@ export default function Experiences() {
             <KeyboardArrowDown sx={{ fontSize: 35 }} />
           </IconButton>
         </div>
-    </Box>;
+      </Box>
+    );
   };
 
   const WebStepper = () => (
@@ -189,9 +198,16 @@ export default function Experiences() {
             Projects that I worked on
           </Typography>
           <Grid container spacing={8} className="py-2 m-0 w-full">
-            {projects?.map((project, index) => (
-              <ProjectCard key={`${experience?.id}_${index}`} {...project}/>
-            ))}
+            {loading
+              ? Array.from({ length: 3 }).map((_, index) => (
+                  <LoadingProjectCard key={index} />
+                ))
+              : projects?.map((project, index) => (
+                  <ProjectCard
+                    key={`${experience?.id}_${index}`}
+                    {...project}
+                  />
+                ))}
           </Grid>
         </div>
       </Grid>

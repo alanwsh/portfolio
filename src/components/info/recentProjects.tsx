@@ -1,26 +1,18 @@
-import ProjectCard from "@/app/portfolio/components/ProjectCard";
-import { expertises } from "@/models/expertise";
+import ProjectCard, { LoadingProjectCard } from "@/app/portfolio/components/ProjectCard";
 import { Project, Projects } from "@/models/projects";
-import { skills } from "@/models/skills";
 import {
-  Avatar,
   Button,
-  Card,
-  CardContent,
-  Chip,
   Grid,
-  Stack,
-  Typography,
 } from "@mui/material";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 
 export default function RecentProjects() {
-
   const [recentProjects, setRecentProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setRecentProjects(Projects.filter(p => p.recent));
+    setRecentProjects(Projects.filter((p) => p.recent));
+    setLoading(false);
   }, []);
 
   return (
@@ -28,9 +20,14 @@ export default function RecentProjects() {
       <div className="w-full">
         <h3 className="text-2xl font-bold mb-6">My Recent Projects</h3>
         <Grid container>
-          {recentProjects.map((project, index) => (
-              <ProjectCard {...project} key={index} />
-          ))}
+          {loading
+            ? Array.from({ length: 3 }).map((_, index) => (
+                <LoadingProjectCard key={index}/>
+              ))
+            : recentProjects.map((project, index) => (
+                <ProjectCard {...project} key={index} />
+              ))}
+
           <Grid item xs={12} className="flex justify-center mt-4">
             <Button
               variant="contained"
