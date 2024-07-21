@@ -149,7 +149,7 @@ const ProjectCard: React.FC<Project> = ({
         onClose={_handleClose}
         key={name}
         TransitionComponent={Transition}
-        sx={{ zIndex: 1300 }}
+        sx={{ zIndex: 99999 }}
       >
         <AppBar sx={{ position: "relative" }} className={theme.background}>
           <Toolbar>

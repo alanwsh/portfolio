@@ -117,8 +117,8 @@ export default function Expertise() {
             className="rounded-xl"
             fullWidth
           >
-            <div className="window" style={{height: state.mobile ? '650px' : undefined}}>
-              <nav className="tabNav" style={{height: state.mobile ? '30%' : undefined}}>
+            <div className="window dark:bg-gray-700" style={{height: state.mobile ? '650px' : undefined}}>
+              <nav className="tabNav dark:border-b dark:border-black" style={{height: state.mobile ? '30%' : undefined}}>
                 <Reorder.Group
                   as="ul"
                   axis={state.mobile ? 'y' : 'x'}

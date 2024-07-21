@@ -182,19 +182,19 @@ export default function NavBar() {
         } 
       )}
       aria-label="Global"
-      style={{ position: "sticky", top: 0, zIndex: 999 }}
+      style={{ position: "sticky", top: 0, zIndex: 9999 }}
     >
       <div className="flex">
         <Link href="/" className="-m-1.5 p-1.5 flex items-center">
           <Image
             src="/logo.jpg"
             alt="Logo"
-            className="h-20 w-auto rounded-full m-2"
+            className="h-20 w-auto rounded-full m-1"
             priority
-            width={120}
-            height={100}
+            width={60}
+            height={60}
           />
-          <span className="text-gray-900 text-md font-semibold">ALAN</span>
+          <span className="text-md font-semibold pl-2">ALAN</span>
         </Link>
       </div>
       <div className="flex lg:hidden">
@@ -280,7 +280,7 @@ export default function NavBar() {
           );
         })}
       </div>
-      <div className="hidden lg:flex">
+      <div className="hidden lg:flex z-9999">
         <FormControlLabel
           label={state.dark ? "Dark" : "Light"}
           control={
