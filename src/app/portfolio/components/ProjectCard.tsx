@@ -82,7 +82,7 @@ const ProjectCard: React.FC<Project> = ({
       md={4}
       style={{ paddingLeft: 28 }}
     >
-      <Card className="rounded-lg h-full">
+      <Card className="rounded-lg h-full dark:bg-gray-700">
         <div className="relative">
           <div
             className="bg-black"

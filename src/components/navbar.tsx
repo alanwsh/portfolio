@@ -12,25 +12,80 @@ import {
   School,
   ExpandLess,
   ExpandMore,
+  Preview,
 } from "@mui/icons-material";
 import Image from "next/image";
 import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Switch, { SwitchProps } from "@mui/material/Switch";
+
 import {
   Box,
   Collapse,
   Divider,
   Drawer,
+  FormControlLabel,
   List,
   ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
+import { styled } from "@mui/material/styles";
+import { useAppContext } from "@/context/app";
+import classNames from "classnames";
 
 export default function NavBar() {
   const router = useRouter();
+
+  const MaterialUISwitch = styled(Switch)(({ theme }) => ({
+    width: 62,
+    height: 34,
+    padding: 7,
+    "& .MuiSwitch-switchBase": {
+      margin: 1,
+      padding: 0,
+      transform: "translateX(6px)",
+      "&.Mui-checked": {
+        color: "#fff",
+        transform: "translateX(22px)",
+        "& .MuiSwitch-thumb:before": {
+          backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 20 20"><path fill="${encodeURIComponent(
+            "#fff"
+          )}" d="M4.2 2.5l-.7 1.8-1.8.7 1.8.7.7 1.8.6-1.8L6.7 5l-1.9-.7-.6-1.8zm15 8.3a6.7 6.7 0 11-6.6-6.6 5.8 5.8 0 006.6 6.6z"/></svg>')`,
+        },
+        "& + .MuiSwitch-track": {
+          opacity: 1,
+          backgroundColor:
+            theme.palette.mode === "dark" ? "#8796A5" : "#aab4be",
+        },
+      },
+    },
+    "& .MuiSwitch-thumb": {
+      backgroundColor: theme.palette.mode === "dark" ? "#003892" : "#001e3c",
+      width: 32,
+      height: 32,
+      "&::before": {
+        content: "''",
+        position: "absolute",
+        width: "100%",
+        height: "100%",
+        left: 0,
+        top: 0,
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+        backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 20 20"><path fill="${encodeURIComponent(
+          "#fff"
+        )}" d="M9.305 1.667V3.75h1.389V1.667h-1.39zm-4.707 1.95l-.982.982L5.09 6.072l.982-.982-1.473-1.473zm10.802 0L13.927 5.09l.982.982 1.473-1.473-.982-.982zM10 5.139a4.872 4.872 0 00-4.862 4.86A4.872 4.872 0 0010 14.862 4.872 4.872 0 0014.86 10 4.872 4.872 0 0010 5.139zm0 1.389A3.462 3.462 0 0113.471 10a3.462 3.462 0 01-3.473 3.472A3.462 3.462 0 016.527 10 3.462 3.462 0 0110 6.528zM1.665 9.305v1.39h2.083v-1.39H1.666zm14.583 0v1.39h2.084v-1.39h-2.084zM5.09 13.928L3.616 15.4l.982.982 1.473-1.473-.982-.982zm9.82 0l-.982.982 1.473 1.473.982-.982-1.473-1.473zM9.305 16.25v2.083h1.389V16.25h-1.39z"/></svg>')`,
+      },
+    },
+    "& .MuiSwitch-track": {
+      opacity: 1,
+      backgroundColor: theme.palette.mode === "dark" ? "#8796A5" : "#aab4be",
+      borderRadius: 20 / 2,
+    },
+  }));
 
   type MenuItemType = {
     icon: ReactNode;
@@ -55,6 +110,8 @@ export default function NavBar() {
   };
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { state, setState } = useAppContext();
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -78,7 +135,7 @@ export default function NavBar() {
             description:
               "Projects I ever worked on including full time and freelance",
             href: "/portfolio/project",
-          }
+          },
         ],
       },
     },
@@ -107,11 +164,23 @@ export default function NavBar() {
   const _handleSubmenuClick = (href: string) => {
     router.push(href);
     toggleMenu();
-  }
+  };
+
+  const _handleDarkModeToggle = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setState((prev) => ({ ...prev, dark: event.target.checked }));
+  };
 
   return (
     <nav
-      className="mx-auto flex items-center justify-between p-1 pt-0 lg:px-8 bg-white w-full rounded-sm"
+      className={classNames(
+        "mx-auto flex items-center justify-between p-1 pt-0 lg:px-8 w-full rounded-sm",
+        {
+          "bg-white": !state.dark,
+          "bg-black text-white": state.dark, // Adjust classes for dark mode
+        } 
+      )}
       aria-label="Global"
       style={{ position: "sticky", top: 0, zIndex: 999 }}
     >
@@ -120,7 +189,7 @@ export default function NavBar() {
           <Image
             src="/logo.jpg"
             alt="Logo"
-            className="h-20 w-auto"
+            className="h-20 w-auto rounded-full m-2"
             priority
             width={120}
             height={100}
@@ -155,7 +224,8 @@ export default function NavBar() {
         {routes.map((route, index) => {
           return route.href ? (
             <Button
-              className="text-md font-semibold leading-6 text-gray-900"
+            
+              className="text-md font-semibold leading-6 text-gray-900 dark:text-white"
               style={{ textTransform: "none" }}
               onClick={() => {
                 _handleMenuClick(index);
@@ -166,7 +236,7 @@ export default function NavBar() {
           ) : (
             <React.Fragment key={index}>
               <Button
-                className="text-md font-semibold leading-6 text-gray-900"
+                className="text-md font-semibold leading-6 text-gray-900 dark:text-white"
                 onClick={_handleClick}
                 style={{ textTransform: "none" }}
                 endIcon={<KeyboardArrowDown />}
@@ -186,18 +256,18 @@ export default function NavBar() {
                   <Link href={menu.href} passHref key={i}>
                     <MenuItem onClick={_handleClose}>
                       <div className="group relative flex items-center gap-x-6 p-4 text-sm">
-                        <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
+                        <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white dark:text-gray-900">
                           {menu.icon}
                         </div>
                         <div className="flex-auto">
                           <a
                             href="#"
-                            className="block font-semibold text-gray-900"
+                            className="block font-semibold text-gray-900 dark:text-white"
                           >
                             {menu.title}
                             <span className="absolute inset-0"></span>
                           </a>
-                          <p className="mt-1 text-gray-600 whitespace-normal">
+                          <p className="mt-1 text-gray-600 whitespace-normal dark:text-gray-300">
                             {menu.description}
                           </p>
                         </div>
@@ -209,6 +279,18 @@ export default function NavBar() {
             </React.Fragment>
           );
         })}
+      </div>
+      <div className="hidden lg:flex">
+        <FormControlLabel
+          label={state.dark ? "Dark" : "Light"}
+          control={
+            <MaterialUISwitch
+              sx={{ m: 1 }}
+              onChange={_handleDarkModeToggle}
+              checked={state.dark}
+            />
+          }
+        />
       </div>
       <Drawer
         open={isMenuOpen}
@@ -273,10 +355,15 @@ export default function NavBar() {
                   <Collapse in={route.menu.open} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
                       {route.menu?.list.map((menu: MenuItemType, i: number) => (
-                          <ListItemButton key={i} onClick={() => { _handleSubmenuClick(menu.href)}}>
-                            <ListItemIcon>{menu.icon}</ListItemIcon>
-                            <ListItemText secondary={menu.title} />
-                          </ListItemButton>
+                        <ListItemButton
+                          key={i}
+                          onClick={() => {
+                            _handleSubmenuClick(menu.href);
+                          }}
+                        >
+                          <ListItemIcon>{menu.icon}</ListItemIcon>
+                          <ListItemText secondary={menu.title} />
+                        </ListItemButton>
                       ))}
                     </List>
                   </Collapse>

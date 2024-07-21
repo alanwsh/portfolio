@@ -58,7 +58,7 @@ export default function Experiences() {
       experiences[activeStep-1].start_date,
       experiences[activeStep-1].end_date
     );
-    return <Box className="relative rounded-3xl bg-primary-100 mt-4 mx-6 sticky top-64 flex">
+    return <Box className="relative rounded-3xl bg-primary-100 dark:bg-gray-700 mt-4 mx-6 sticky top-64 flex">
         <Stepper activeStep={activeStep} orientation="vertical">
           <Step key={experiences[activeStep - 1].title}>
             <StepLabel StepIconComponent={() => null}>
@@ -101,7 +101,7 @@ export default function Experiences() {
   };
 
   const WebStepper = () => (
-    <Box className="relative rounded-full bg-primary-100 p-20 py-4 2xl:py-20 overflow-hidden mt-4 mx-6 ">
+    <Box className="relative rounded-full bg-primary-100 dark:bg-gray-700 p-20 py-4 2xl:py-20 overflow-hidden mt-4 mx-6 ">
       <Box className="overflow-auto h-full w-full mx-6 flex">
         <Stepper activeStep={activeStep} orientation="vertical">
           {experiences.map((step, experience_index) => {
@@ -184,7 +184,7 @@ export default function Experiences() {
         <Grid item xs={12} xl={8} className="flex justify-center flex-col">
           <div className="px-6 2xl:px-0">{experience?.content}</div>
         </Grid>
-        <div className="px-4 bg-gray-100 mt-12 pt-8 w-full">
+        <div className="px-4 bg-gray-100 dark:bg-black mt-12 pt-8 w-full">
           <Typography variant="h5" className="text-center font-bold">
             Projects that I worked on
           </Typography>

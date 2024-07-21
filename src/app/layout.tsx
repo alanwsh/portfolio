@@ -22,10 +22,8 @@ export default function RootLayout({
 }>) {
   return (
     <Providers>
-      <html lang="en" className="bg-white">
-        <body className={`${inter.className} bg-white`}>
-          <ClientLayout>{children}</ClientLayout>
-        </body>
+      <html lang="en" className={`${inter.className}`}>
+        <ClientLayout>{children}</ClientLayout>
       </html>
     </Providers>
   );

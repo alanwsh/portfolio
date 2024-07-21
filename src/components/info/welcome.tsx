@@ -5,19 +5,19 @@ import Link from "next/link";
 import { Link as ScrollLink, Element } from "react-scroll";
 export default function Welcome() {
   return (
-    <section className="flex flex-col md:flex-row items-center justify-between p-6 md:p-12 bg-gray-100">
+    <section className="flex flex-col md:flex-row items-center justify-between p-6 md:p-12 bg-gray-100 dark:bg-gray-700">
       <div className="md:w-1/2 p-4">
-        <h1 className="text-2xl text-gray-900 mb-4">Hello, I'm</h1>
-        <h1 className="text-4xl font-bold text-primary-700 my-6">Alan Wong</h1>
-        <p className="text-xl text-gray-900 mb-4">
+        <h1 className="text-2xl text-gray-900 dark:text-white mb-4">Hello, I'm</h1>
+        <h1 className="text-4xl font-bold text-primary-700 dark:text-primary-300 my-6">Alan Wong</h1>
+        <p className="text-xl text-gray-900 dark:text-white mb-4">
           A{" "}
-          <span className="font-bold text-purple-700">
+          <span className="font-bold text-purple-700 dark:text-purple-300">
             Full Stack Developer
           </span>{" "}
           from{" "}
           <span className="text-alert font-bold">Kuala Lumpur, Malaysia</span>
         </p>
-        <p className="text-md text-gray-700 mb-4">
+        <p className="text-md mb-4">
           {`I'm a passionate software developer with a focus on creating efficient
         and scalable solutions expertising in web and mobile application
         development`}
@@ -41,13 +41,13 @@ export default function Welcome() {
               target="_blank"
               href="https://www.linkedin.com/in/wong-shou-hong-aa158a1ab/"
             >
-              <LinkedIn fontSize="large" className="mx-2" />
+              <LinkedIn fontSize="large" className="mx-2 dark:text-white" />
             </Link>
             <Link target="_blank" href="https://github.com/alanwsh">
-              <GitHub fontSize="large" className="mx-2" />
+              <GitHub fontSize="large" className="mx-2 dark:text-white" />
             </Link>
             <Link target="_blank" href="mailto:alan_wsh@hotmail.com">
-              <Email fontSize="large" className="mx-2" />
+              <Email fontSize="large" className="mx-2 dark:text-white" />
             </Link>
           </div>
         </div>

@@ -52,7 +52,7 @@ export default function Expertise() {
   };
 
   return (
-    <section className="flex items-center justify-between p-6 md:p-12 bg-gray-100">
+    <section className="flex items-center justify-between p-6 md:p-12 dark:bg-gray-700">
       <div className="w-full">
         <h3 className="text-2xl font-bold mb-6">My Expertises</h3>
         <Grid container>

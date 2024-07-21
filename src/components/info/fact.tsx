@@ -14,7 +14,7 @@ const Fact: React.FC<CardProps> = ({ children, index }) => {
   return (
     <motion.button
       whileHover={{ scale: 1.2 }}
-      className="card bg-white rounded-lg shadow-lg p-4 flex flex-col px-8 w-full"
+      className="card dark:bg-gray-700 rounded-lg shadow-lg p-4 flex flex-col px-8 w-full"
       style={{
         zIndex: isHovered ? 1000 : 100 - index,
         marginLeft: isDesktop ? index * -20 : '',
