@@ -1,48 +1,43 @@
 import {
-  AppBar,
   Avatar,
   Button,
   Card,
-  CardActions,
   CardContent,
   Chip,
-  Dialog,
   Grid,
-  IconButton,
   Skeleton,
-  Slide,
   Stack,
-  Toolbar,
   Typography,
 } from "@mui/material";
-import Link from "next/link";
-import LinkIcon from "@mui/icons-material/Link";
-import { Project } from "@/models/projects";
+import { motion } from "framer-motion";
 import { skills } from "@/models/skills";
-import { TransitionProps } from "@mui/material/transitions";
+
+import { Project } from "@/models/projects";
 import React, { useState } from "react";
-import { Close } from "@mui/icons-material";
-import Image from "next/image";
-import { useAppContext } from "@/context/app";
-
-const Transition = React.forwardRef(function Transition(
-  props: TransitionProps & {
-    children: React.ReactElement;
-  },
-  ref: React.Ref<unknown>
-) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
-
-type ColorKey = "primary" | "alert" | "red";
 
 export const LoadingProjectCard = () => (
   <CardContainer>
-    <Skeleton variant="rectangular" className="w-full" height={250} />
-    <CardContent className="p-8">
-      <Skeleton variant="text" />
-      <Skeleton variant="text" />
-    </CardContent>
+    <Card
+      style={{
+        overflow: "hidden",
+        position: "relative",
+        cursor: "pointer",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        height: 400,
+      }}
+    >
+      <div className="w-[50%]">
+        <Typography variant="h3" className="w-full">
+          <Skeleton  />
+        </Typography>
+        <Typography variant="body1">
+          <Skeleton  />
+        </Typography>
+      </div>
+    </Card>
   </CardContainer>
 );
 
@@ -56,6 +51,21 @@ const CardContainer = ({
   </Grid>
 );
 
+const cardVariants = {
+  initial: { opacity: 1 },
+  hover: { opacity: 0.8 },
+};
+
+const contentVariants = {
+  hidden: { opacity: 0, transition: { duration: 0.3 } },
+  visible: { opacity: 1, transition: { duration: 0.3 } },
+};
+
+const buttonVariants = {
+  hidden: { opacity: 0, transition: { duration: 0.3 } },
+  visible: { opacity: 1, transition: { duration: 0.3 } },
+};
+
 const ProjectCard: React.FC<Project> = ({
   name,
   title,
@@ -67,7 +77,7 @@ const ProjectCard: React.FC<Project> = ({
   details,
   color = "primary",
 }) => {
-  const [open, setOpen] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const colorClasses = {
     primary: {
       text: "text-primary",
@@ -85,135 +95,130 @@ const ProjectCard: React.FC<Project> = ({
   };
   const theme = color ? colorClasses[color] : colorClasses["primary"];
 
-  const _handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const _handleClose = () => {
-    setOpen(false);
-  };
-
-  const { state, setState } = useAppContext();
-
   return (
     <CardContainer>
-      <div className="relative">
+      <motion.div
+        variants={cardVariants}
+        initial="initial"
+        whileHover="hover"
+        transition={{ duration: 0.3 }}
+        style={{
+          overflow: "hidden",
+          position: "relative",
+          cursor: "pointer",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          height: 400,
+        }}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
         <div
-          className="bg-black"
           style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: "80%",
+            height: "80%",
             backgroundImage: `url(${image})`,
-            opacity: 0.2,
-            height: 250,
             backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
+            backgroundSize: "contain",
             backgroundPosition: "center",
+            opacity: 0.2,
+            zIndex: 0,
           }}
         />
-        <div className="absolute inset-0 flex items-center justify-center text-center">
-          <Typography className="text-4xl font-bold uppercase md:text-6xl">
-            <span className={theme.text}>{name}</span>
-          </Typography>
-        </div>
-      </div>
-      <CardContent className="p-8">
-        <Typography gutterBottom variant="h6" component="div">
-          {title}
-          {link && (
-            <Link href={link} target="_blank">
-              <LinkIcon fontSize="large" className="ml-1" color="primary" />
-            </Link>
-          )}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {subtitle}
-        </Typography>
-        <Stack
-          direction="row"
-          spacing={1}
-          className="my-2"
-          sx={{ flexWrap: "wrap", columnGap: 0.5, rowGap: 1 }}
+
+        {/* Content container */}
+        <motion.div
+          className="content"
+          variants={contentVariants}
+          initial="visible"
+          animate={isHovered ? "hidden" : "visible"}
+          style={{
+            position: "absolute",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "20px",
+            boxSizing: "border-box",
+            zIndex: 1,
+            height: "100%",
+            width: "100%",
+          }}
         >
-          {skills
-            .filter((skill) => categories?.includes(skill.id))
-            ?.map((category, index) => (
-              <Chip
-                key={category.id}
-                className="p-1 text-md"
-                avatar={<Avatar src={category.avatar} />}
-                label={category.name}
-              />
-            ))}
-        </Stack>
-        <Typography variant="body2" className="mt-4">
-          Highlighted Contributions:
-        </Typography>
-        <Typography className="font-bold mt-2">{contributions}</Typography>
-      </CardContent>
-      <CardActions>
-        {details && (
-          <Button size="small" onClick={_handleClickOpen}>
-            Screenshots
-          </Button>
-        )}
-      </CardActions>
-      <Dialog
-        fullScreen
-        open={open}
-        onClose={_handleClose}
-        key={name}
-        TransitionComponent={Transition}
-        sx={{ zIndex: 99999 }}
-      >
-        <AppBar sx={{ position: "relative" }} className={theme.background}>
-          <Toolbar>
-            <IconButton
-              edge="start"
-              color="inherit"
-              onClick={_handleClose}
-              aria-label="close"
-            >
-              <Close />
-            </IconButton>
-            <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-              {title}
+          <Typography
+            variant="h3"
+            className={`text-center font-bold ${theme.text}`}
+          >
+            {name}
+          </Typography>
+          <Typography variant="body1" className="text-center">
+            {title}
+          </Typography>
+          <Stack
+            direction="row"
+            spacing={1}
+            className="my-2"
+            sx={{ flexWrap: "wrap", columnGap: 0.5, rowGap: 1 }}
+          >
+            {skills
+              .filter((skill) => categories?.includes(skill.id))
+              ?.map((category, index) => (
+                <Chip
+                  key={category.id}
+                  className="p-1 text-md"
+                  avatar={<Avatar src={category.avatar} />}
+                  label={category.name}
+                />
+              ))}
+          </Stack>
+        </motion.div>
+        <motion.div
+          className="bg-gray-700 text-white"
+          initial="hidden"
+          variants={buttonVariants}
+          animate={isHovered ? "visible" : "hidden"}
+          style={{
+            position: "absolute",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "20px",
+            boxSizing: "border-box",
+            zIndex: 1,
+            height: "100%",
+            width: "100%",
+          }}
+        >
+          <div className="flex flex-col gap-y-8 divide-y divide-opacity-25">
+            <Typography variant="body1" className="text-center">
+              {subtitle}
             </Typography>
-          </Toolbar>
-        </AppBar>
-        {details &&
-          details.map((section, sectionIndex) => (
-            <React.Fragment key={sectionIndex}>
-              <Grid container spacing={3} className="px-4 pt-5">
-                <Grid item sm={12}>
-                  <Typography className="text-3xl">{section.title}</Typography>
-                </Grid>
-                {section.galleries.map((image, imageIndex) => (
-                  <Grid
-                    item
-                    key={`${sectionIndex}-${imageIndex}`}
-                    spacing={12}
-                    sm={2}
-                  >
-                    <Image
-                      src={image}
-                      alt={`Gallery image ${imageIndex + 1}`}
-                      layout="responsive"
-                      width={100}
-                      height={100}
-                      className="w-full h-full"
-                      onClick={() => {
-                        setState((prevState) => ({
-                          ...prevState,
-                          image,
-                        }));
-                      }}
-                    />
-                  </Grid>
-                ))}
-              </Grid>
-            </React.Fragment>
-          ))}
-      </Dialog>
+            <Typography variant="body1" className="pt-6 font-bold text-center">
+              Highlighted Contributions:
+            </Typography>
+          </div>
+          <Typography variant="body1" className="font-bold mt-2 text-center">
+            {contributions}
+          </Typography>
+          <Button
+            variant="contained"
+            className="px-9 text-lg mt-3"
+            style={{ borderRadius: 20, textTransform: "none" }}
+            size="large"
+          >
+            See More
+          </Button>
+        </motion.div>
+      </motion.div>
     </CardContainer>
   );
 };
+
 export default ProjectCard;

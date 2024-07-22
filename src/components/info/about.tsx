@@ -104,10 +104,10 @@ export default function About() {
 
   return (
     <Element name="about">
-      <section className="flex items-center justify-between p-6 md:p-12">
+      <section className="flex items-center bg-white dark:bg-black justify-between p-6 md:p-12">
         <div className="w-full">
           <h3 className="text-2xl font-bold mb-6">About Me</h3>
-          <Grid container>
+          <Grid container spacing={4}>
             <Grid item xs={12} xl={6}>
               <Typography variant="body1">
                 I am a Full Stack Developer based in Kuala Lumpur, Malaysia. I
