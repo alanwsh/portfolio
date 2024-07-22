@@ -26,35 +26,38 @@ export const Projects: Project[] = [
     name: 'Fight zone',
     title: "Fitness Franchise Management Solutions",
     subtitle:
-      "A fitness brand with multiple franchises in Singapore, for which we developed software solutions, including websites and mobile applications, for use by all their members and staff.",
+      "We developed comprehensive software solutions, including websites and mobile applications, for a fitness brand with multiple franchises in Singapore. Our solutions support various modules such as CRM, timesheet payroll, commission management, and scheduling for shifts and classes.",
     link: "https://www.fightzonesg.com/",
     image:
       "https://www.fightzonesg.com/wp-content/uploads/2021/03/fz-favicon.png",
     categories: [1, 2, 3, 4],
     contributions: "Implemented integrations with various payment gateways including Ezypay and Stripe. Developed a segmentation module for targeting marketing emails and notifications to specific user groups. Integrated AWS IoT Core to enable gate access upon user entry through system. Designed and implemented business functionalities for the gym industry, such as membership suspension and termination.",
     details: [
+      // {
+      //   title: "Admin Backoffice",
+      //   galleries: [
+      //     "/fightzone/class.png",
+      //     "/fightzone/client_profile.png",
+      //     "/fightzone/dashboard.png",
+      //     "/fightzone/inventory.png",
+      //     "/fightzone/learn.png",
+      //     "/fightzone/reports.png",
+      //     "/fightzone/shift.png",
+      //   ],
+      // },
       {
-        title: "Admin Backoffice",
+        title: "Member Application",
         galleries: [
-          "/fightzone/class.png",
-          "/fightzone/client_profile.png",
-          "/fightzone/dashboard.png",
-          "/fightzone/inventory.png",
-          "/fightzone/learn.png",
-          "/fightzone/reports.png",
-          "/fightzone/shift.png",
+          "/fightzone/app1.webp",
+          "/fightzone/member_appointment.webp",
         ],
       },
       {
-        title: "Admin Backoffice",
+        title: "Trainer Application",
         galleries: [
-          "/fightzone/class.png",
-          "/fightzone/client_profile.png",
-          "/fightzone/dashboard.png",
-          "/fightzone/inventory.png",
-          "/fightzone/learn.png",
-          "/fightzone/reports.png",
-          "/fightzone/shift.png",
+          "/fightzone/staff_home.webp",
+          "/fightzone/staff_shift.webp",
+          "/fightzone/staff_appointment.webp",
         ],
       },
     ],
@@ -72,6 +75,24 @@ export const Projects: Project[] = [
     contributions: "Entire application is designed and developed only by myself from scratch",
     categories: [1, 2, 4],
     recent: true,
+    details: [
+      {
+        title: "Admin Backoffice",
+        galleries: [
+          "/nlp/staff_home,png",
+          "/nlp/staff_rate.png",
+          "/nlp/staff_report.png",
+        ],
+      },
+      {
+        title: "Investor Portal",
+        galleries: [
+          "/nlp/investor_home,png",
+          "/nlp/investor_crypto.png",
+          "/nlp/investor_bank.png",
+        ],
+      },
+    ],
   },
   {
     experience_id: 1,

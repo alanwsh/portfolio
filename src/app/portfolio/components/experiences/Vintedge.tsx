@@ -4,20 +4,10 @@ export default function Vintedge() {
   return (
     <>
       <Typography variant="body1" className="my-3">
-        During my tenure at Vintedge Sdn Bhd as a Junior Web Developer, our
-        focus was on providing specialized IT services to clients. I specialized
-        in developing comprehensive solutions for both mobile and web platforms.
-      </Typography>
-      <Typography variant="body1" className="my-3">
-        My responsibilities included designing and implementing database
-        schemas, writing code, conducting code reviews, mentoring team members,
-        and approving pull requests.
-      </Typography>
-      <Typography variant="body1" className="my-3">
-        I advocated for Docker as the deployment solution across various
-        projects within a unified environment. Additionally, I designed and
-        implemented a payment solution that seamlessly integrates multiple
-        payment gateways into our applications.
+        During my tenure at Vintedge Sdn Bhd as a Junior Web Developer, I was
+        responsible for maintaining and enhancing an e-commerce platform based
+        on the Yii 1 framework. Additionally, I updated the content and UI of
+        hospital websites and the admin portal with .NET.{" "}
       </Typography>
     </>
   );

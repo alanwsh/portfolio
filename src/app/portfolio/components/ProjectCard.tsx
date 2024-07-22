@@ -5,15 +5,21 @@ import {
   CardContent,
   Chip,
   Grid,
+  ImageList,
+  ImageListItem,
   Skeleton,
   Stack,
   Typography,
 } from "@mui/material";
-import { motion } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import { skills } from "@/models/skills";
 
 import { Project } from "@/models/projects";
 import React, { useState } from "react";
+import Image from "next/image";
+import { Close } from "@mui/icons-material";
+import IconButton from "@mui/material/IconButton";
+import { useAppContext } from "@/context/app";
 
 export const LoadingProjectCard = () => (
   <CardContainer>
@@ -31,10 +37,10 @@ export const LoadingProjectCard = () => (
     >
       <div className="w-[50%]">
         <Typography variant="h3" className="w-full">
-          <Skeleton  />
+          <Skeleton />
         </Typography>
         <Typography variant="body1">
-          <Skeleton  />
+          <Skeleton />
         </Typography>
       </div>
     </Card>
@@ -57,13 +63,13 @@ const cardVariants = {
 };
 
 const contentVariants = {
-  hidden: { opacity: 0, transition: { duration: 0.3 } },
-  visible: { opacity: 1, transition: { duration: 0.3 } },
+  hidden: { opacity: 0, transition: { duration: 0.5 } },
+  visible: { opacity: 1, transition: { duration: 0.5 } },
 };
 
 const buttonVariants = {
-  hidden: { opacity: 0, transition: { duration: 0.3 } },
-  visible: { opacity: 1, transition: { duration: 0.3 } },
+  hidden: { opacity: 0, transition: { duration: 0.5 } },
+  visible: { opacity: 1, transition: { duration: 0.5 } },
 };
 
 const ProjectCard: React.FC<Project> = ({
@@ -78,6 +84,13 @@ const ProjectCard: React.FC<Project> = ({
   color = "primary",
 }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const [seeDetails, setSeeDetails] = useState(false);
+  const { state } = useAppContext();
+  const modalVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: { opacity: 1, scale: 1 },
+    exit: { opacity: 0, scale: 0.8 },
+  };
   const colorClasses = {
     primary: {
       text: "text-primary",
@@ -93,8 +106,16 @@ const ProjectCard: React.FC<Project> = ({
     },
     // Add other colors as needed
   };
-  const theme = color ? colorClasses[color] : colorClasses["primary"];
+  const controls = useAnimation();
 
+  const theme = color ? colorClasses[color] : colorClasses["primary"];
+  React.useEffect(() => {
+    if (seeDetails) {
+      controls.start("visible");
+    } else {
+      controls.start("hidden");
+    }
+  }, [seeDetails, controls]);
   return (
     <CardContainer>
       <motion.div
@@ -163,7 +184,7 @@ const ProjectCard: React.FC<Project> = ({
           <Stack
             direction="row"
             spacing={1}
-            className="my-2"
+            className="my-2 justify-center"
             sx={{ flexWrap: "wrap", columnGap: 0.5, rowGap: 1 }}
           >
             {skills
@@ -196,27 +217,91 @@ const ProjectCard: React.FC<Project> = ({
             width: "100%",
           }}
         >
-          <div className="flex flex-col gap-y-8 divide-y divide-opacity-25">
-            <Typography variant="body1" className="text-center">
+          <div className="flex flex-col gap-y-2 md:gap-y-4 divide-y divide-opacity-25">
+            <Typography
+              variant={state.mobile ? "caption" : "body2"}
+              className="text-center"
+            >
               {subtitle}
             </Typography>
-            <Typography variant="body1" className="pt-6 font-bold text-center">
+            <Typography
+              variant={state.mobile ? "caption" : "body2"}
+              className="pt-2 md:pt-6 font-bold text-center"
+            >
               Highlighted Contributions:
             </Typography>
           </div>
-          <Typography variant="body1" className="font-bold mt-2 text-center">
+          <Typography
+            variant={state.mobile ? "caption" : "body2"}
+            className="font-bold mt-2 text-center"
+          >
             {contributions}
           </Typography>
           <Button
             variant="contained"
             className="px-9 text-lg mt-3"
             style={{ borderRadius: 20, textTransform: "none" }}
-            size="large"
+            size={state.mobile ? "small" : "large"}
+            onClick={() => setSeeDetails(true)}
           >
             See More
           </Button>
         </motion.div>
       </motion.div>
+      <>
+        {seeDetails && (
+          <motion.div
+            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+            onClick={() => {
+              setSeeDetails(false);
+            }}
+            initial="hidden"
+            animate={controls}
+            exit="exit"
+            style={{ zIndex: 999999 }}
+          >
+            <motion.div
+              className="p-8 rounded-lg bg-white dark:bg-gray-700 flex flex-col max-h-[75%]"
+              onClick={(e) => e.stopPropagation()} // Prevent click event from closing modal
+              variants={modalVariants}
+            >
+              <IconButton
+                className="self-end"
+                onClick={() => {
+                  setSeeDetails(false);
+                }}
+              >
+                <Close />
+              </IconButton>
+
+              {details &&
+                details.map((section, sectionIndex) => (
+                  <React.Fragment key={sectionIndex}>
+                    <Typography className="text-xl mb-2">
+                      {section.title}
+                    </Typography>
+                    <ImageList
+                      sx={{ width: 500, height: 450 }}
+                      cols={3}
+                      rowHeight={180}
+                    >
+                      {section.galleries.map((item, imageIndex) => (
+                        <ImageListItem key={imageIndex}>
+                          <Image
+                            src={item}
+                            alt={`Gallery image ${imageIndex + 1}`}
+                            width={164}
+                            height={180}
+                          />
+                        </ImageListItem>
+                      ))}
+                    </ImageList>
+                  </React.Fragment>
+                ))}
+            </motion.div>
+          </motion.div>
+        )}
+      </>
     </CardContainer>
   );
 };
