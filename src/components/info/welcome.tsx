@@ -2,7 +2,7 @@ import { Email, GitHub, LinkedIn } from "@mui/icons-material";
 import { Button } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
-import { Link as ScrollLink, Element } from "react-scroll";
+import { Link as ScrollLink } from "react-scroll";
 export default function Welcome() {
   return (
     <section className="flex flex-col md:flex-row items-center justify-between p-6 md:p-12 bg-gray-100 dark:bg-gray-700">

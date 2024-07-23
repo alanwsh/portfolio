@@ -140,7 +140,12 @@ export default function NavBar() {
         ],
       },
     },
-    { title: "Mini Games", onClick: () => { setState(prev => ({...prev, comingSoon: true})) } },
+    {
+      title: "Mini Games",
+      onClick: () => {
+        setState((prev) => ({ ...prev, comingSoon: true }));
+      },
+    },
   ]);
   const open = Boolean(anchorEl);
 
@@ -149,10 +154,9 @@ export default function NavBar() {
   };
 
   const _handleMenuClick = (index: number) => {
-    if (routes[index].onClick){
+    if (routes[index].onClick) {
       routes[index].onClick();
-    }
-    else if (routes[index].href) {
+    } else if (routes[index].href) {
       router.push(routes[index].href);
     } else {
       setRoutes((prevRoutes) =>
@@ -183,7 +187,7 @@ export default function NavBar() {
         {
           "bg-white": !state.dark,
           "bg-black text-white": state.dark, // Adjust classes for dark mode
-        } 
+        }
       )}
       aria-label="Global"
       style={{ position: "sticky", top: 0, zIndex: 9999 }}
@@ -228,7 +232,6 @@ export default function NavBar() {
         {routes.map((route, index) => {
           return route.href || route.onClick ? (
             <Button
-            
               className="text-md font-semibold leading-6 text-gray-900 dark:text-white"
               style={{ textTransform: "none" }}
               onClick={() => {
@@ -251,7 +254,7 @@ export default function NavBar() {
                 id="basic-menu"
                 anchorEl={anchorEl}
                 open={open}
-                sx={{zIndex:10000}}
+                sx={{ zIndex: 10000 }}
                 onClose={_handleClose}
                 MenuListProps={{
                   "aria-labelledby": "basic-button",
@@ -303,23 +306,24 @@ export default function NavBar() {
         anchor="right"
         hideBackdrop={true}
         disableScrollLock={true}
-        style={{zIndex: 99999}}
+        style={{ zIndex: 99999 }}
       >
         <Box
           onKeyDown={toggleMenu}
           className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white dark:bg-black px-6 py-6 sm:max-w-sm"
         >
           <div className="flex items-center justify-between">
-            <a href="#" className="-m-1.5 p-1.5">
+            <Link href="/" className="flex items-center justify-between">
               <Image
                 src="/logo.jpg"
                 alt="Logo"
-                className="h-20 w-auto"
+                className="h-20 w-auto rounded-full"
                 priority
-                width={120}
-                height={100}
+                width={60}
+                height={60}
               />
-            </a>
+              <span className="text-md font-semibold pl-2">ALAN</span>
+            </Link>
             <button
               type="button"
               className="-m-2.5 rounded-md p-2.5 text-gray-700 dark:text-white"
@@ -349,7 +353,7 @@ export default function NavBar() {
                   <ListItemButton
                     onClick={() => {
                       _handleMenuClick(index);
-                      if(!route.menu){
+                      if (!route.menu) {
                         toggleMenu();
                       }
                     }}
