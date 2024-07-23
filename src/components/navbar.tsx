@@ -303,10 +303,11 @@ export default function NavBar() {
         anchor="right"
         hideBackdrop={true}
         disableScrollLock={true}
+        style={{zIndex: 99999}}
       >
         <Box
           onKeyDown={toggleMenu}
-          className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm "
+          className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white dark:bg-black px-6 py-6 sm:max-w-sm"
         >
           <div className="flex items-center justify-between">
             <a href="#" className="-m-1.5 p-1.5">
@@ -348,7 +349,9 @@ export default function NavBar() {
                   <ListItemButton
                     onClick={() => {
                       _handleMenuClick(index);
-                      toggleMenu();
+                      if(!route.menu){
+                        toggleMenu();
+                      }
                     }}
                   >
                     <ListItemText primary={route.title} />

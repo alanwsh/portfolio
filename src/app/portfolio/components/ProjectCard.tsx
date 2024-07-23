@@ -53,7 +53,7 @@ const CardContainer = ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => (
-  <Grid item xs={12} sm={4} md={4} style={{ paddingLeft: 28 }}>
+  <Grid item xs={12} sm={4} md={4} className="px-4 py-2">
     <Card className="rounded-lg h-full dark:bg-gray-700">{children}</Card>
   </Grid>
 );
