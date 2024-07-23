@@ -6,7 +6,7 @@ import StepLabel from "@mui/material/StepLabel";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import { KeyboardArrowUp, KeyboardArrowDown, Work } from "@mui/icons-material";
-import { Grid, StepIconProps } from "@mui/material";
+import { Grid } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import moment from "moment";
 import ProjectCard, { LoadingProjectCard } from "./ProjectCard";
@@ -17,11 +17,16 @@ import { motion } from "framer-motion";
 export default function Experiences() {
   const { state } = useAppContext();
 
+  type StepIconComponentProps = {
+    icon: React.ComponentType; // This allows passing any valid React component
+    active?: boolean;
+  };
+
   const StepIcon = styled("div")<{ active: boolean }>(({ theme, active }) => ({
     color: active ? theme.palette.primary.main : "lightgrey",
   }));
 
-  const StepIconComponent: React.FC<StepIconProps> = ({
+  const StepIconComponent: React.FC<StepIconComponentProps> = ({
     icon: IconComponent,
     active = false,
   }) => {

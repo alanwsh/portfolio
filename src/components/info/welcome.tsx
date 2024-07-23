@@ -19,12 +19,12 @@ export default function Welcome() {
           <span className="text-alert font-bold">Kuala Lumpur, Malaysia</span>
         </p>
         <p className="text-md mb-4">
-          {`I&apos;m a passionate software developer with a focus on creating efficient
+          {`I'm a passionate software developer with a focus on creating efficient
         and scalable solutions expertising in web and mobile application
         development`}
         </p>
         <p className="text-md text-gray-700">
-          {`Let&apos;s connect and create something amazing together!`}
+          {`Let's connect and create something amazing together!`}
         </p>
         <div className="flex flex-col md:flex-row justify-center md:justify-start items-center mt-6 md:divide-x divide-black">
           <ScrollLink to="about" smooth={true} duration={500}>
