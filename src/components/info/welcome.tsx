@@ -3,11 +3,12 @@ import { Button } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import { Link as ScrollLink } from "react-scroll";
+
 export default function Welcome() {
   return (
     <section className="flex flex-col md:flex-row items-center justify-between p-6 md:p-12 bg-gray-100 dark:bg-gray-700">
       <div className="md:w-1/2 p-4">
-        <h1 className="text-2xl text-gray-900 dark:text-white mb-4">Hello, I'm</h1>
+        <h1 className="text-2xl text-gray-900 dark:text-white mb-4">Hello, I&apos;m</h1>
         <h1 className="text-4xl font-bold text-primary-700 dark:text-primary-300 my-6">Alan Wong</h1>
         <p className="text-xl text-gray-900 dark:text-white mb-4">
           A{" "}
@@ -18,12 +19,12 @@ export default function Welcome() {
           <span className="text-alert font-bold">Kuala Lumpur, Malaysia</span>
         </p>
         <p className="text-md mb-4">
-          {`I'm a passionate software developer with a focus on creating efficient
+          {`I&apos;m a passionate software developer with a focus on creating efficient
         and scalable solutions expertising in web and mobile application
         development`}
         </p>
         <p className="text-md text-gray-700">
-          {`Let's connect and create something amazing together!`}
+          {`Let&apos;s connect and create something amazing together!`}
         </p>
         <div className="flex flex-col md:flex-row justify-center md:justify-start items-center mt-6 md:divide-x divide-black">
           <ScrollLink to="about" smooth={true} duration={500}>
