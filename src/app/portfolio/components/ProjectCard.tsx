@@ -20,6 +20,7 @@ import Image from "next/image";
 import { Close } from "@mui/icons-material";
 import IconButton from "@mui/material/IconButton";
 import { useAppContext } from "@/context/app";
+import { ComingSoon } from "@/components/ComingSoonModal";
 
 export const LoadingProjectCard = () => (
   <CardContainer>
@@ -274,7 +275,7 @@ const ProjectCard: React.FC<Project> = ({
                 <Close />
               </IconButton>
 
-              {details &&
+              {details && details?.length > 0 ? (
                 details.map((section, sectionIndex) => (
                   <React.Fragment key={sectionIndex}>
                     <Typography className="text-xl mb-2">
@@ -297,8 +298,12 @@ const ProjectCard: React.FC<Project> = ({
                       ))}
                     </ImageList>
                   </React.Fragment>
-                ))}
+                ))
+              ) : (
+                <ComingSoon />
+              )}
             </motion.div>
+            d
           </motion.div>
         )}
       </>

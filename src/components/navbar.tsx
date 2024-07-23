@@ -103,6 +103,7 @@ export default function NavBar() {
     title: String;
     href?: string;
     menu?: SubMenu;
+    onClick?: () => void;
   };
 
   const _handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -139,7 +140,7 @@ export default function NavBar() {
         ],
       },
     },
-    { title: "Mini Games", href: "/about" },
+    { title: "Mini Games", onClick: () => { setState(prev => ({...prev, comingSoon: true})) } },
   ]);
   const open = Boolean(anchorEl);
 
@@ -148,7 +149,10 @@ export default function NavBar() {
   };
 
   const _handleMenuClick = (index: number) => {
-    if (routes[index].href) {
+    if (routes[index].onClick){
+      routes[index].onClick();
+    }
+    else if (routes[index].href) {
       router.push(routes[index].href);
     } else {
       setRoutes((prevRoutes) =>
@@ -222,7 +226,7 @@ export default function NavBar() {
       </div>
       <div className="hidden lg:flex lg:gap-x-12 flex-1 justify-center">
         {routes.map((route, index) => {
-          return route.href ? (
+          return route.href || route.onClick ? (
             <Button
             
               className="text-md font-semibold leading-6 text-gray-900 dark:text-white"

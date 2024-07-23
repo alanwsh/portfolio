@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 
 export interface AppState {
   image?: string;
+  comingSoon: boolean;
   mobile?: boolean;
   dark: boolean;
 }
@@ -10,7 +11,8 @@ export interface AppState {
 const initialState: AppState = {
   image: undefined,
   mobile: false,
-  dark: false, // Always start with a consistent initial state
+  dark: false,
+  comingSoon: false,
 };
 
 const AppContext = createContext<{

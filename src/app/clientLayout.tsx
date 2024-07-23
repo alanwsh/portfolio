@@ -6,6 +6,7 @@ import { useAppContext } from "@/context/app";
 import NavBar from "@/components/navbar";
 import ImageModal from "@/components/imageModal";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import ComingSoonModal from "@/components/ComingSoonModal";
 export default function ClientLayout({
   children,
 }: {
@@ -41,6 +42,7 @@ export default function ClientLayout({
         {children}
         </div>
         <ImageModal />
+        <ComingSoonModal />
       </body>
     </ThemeProvider>
   );
