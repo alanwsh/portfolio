@@ -238,6 +238,11 @@ export default function NavBar() {
         open={isMenuOpen}
         onClose={toggleMenu}
         anchor="right"
+        PaperProps={{
+          sx: {
+            width: '100%'
+          }
+        }}
         ModalProps={{
           keepMounted: true, // Better open performance on mobile.
         }}
