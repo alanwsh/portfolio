@@ -17,9 +17,9 @@ export default function RecentProjects() {
 
   return (
     <section className="flex items-center justify-between p-6 md:p-12">
-      <div className="w-full">
+      <div className="flex-1">
         <h3 className="text-2xl font-bold mb-6">My Recent Projects</h3>
-        <Grid container spacing={3}>
+        <Grid container>
           {loading
             ? Array.from({ length: 3 }).map((_, index) => (
                 <LoadingProjectCard key={index}/>

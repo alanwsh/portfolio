@@ -16,6 +16,7 @@ export interface Project {
 
 interface ProjectDetailSection {
   title: string;
+  display?: string;
   galleries: string[];
 }
 
@@ -78,8 +79,9 @@ export const Projects: Project[] = [
     details: [
       {
         title: "Admin Backoffice",
+        display: 'row',
         galleries: [
-          "/nlp/staff_home,png",
+          "/nlp/staff_home.png",
           "/nlp/staff_rate.png",
           "/nlp/staff_report.png",
         ],
@@ -87,7 +89,7 @@ export const Projects: Project[] = [
       {
         title: "Investor Portal",
         galleries: [
-          "/nlp/investor_home,png",
+          "/nlp/investor_home.png",
           "/nlp/investor_crypto.png",
           "/nlp/investor_bank.png",
         ],

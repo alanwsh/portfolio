@@ -252,7 +252,7 @@ const ProjectCard: React.FC<Project> = ({
       <>
         {seeDetails && (
           <motion.div
-            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center px-4"
             onClick={() => {
               setSeeDetails(false);
             }}
@@ -262,7 +262,7 @@ const ProjectCard: React.FC<Project> = ({
             style={{ zIndex: 999 }}
           >
             <motion.div
-              className="p-8 rounded-lg bg-white dark:bg-gray-700 flex flex-col max-h-[75%]"
+              className="rounded-lg bg-white dark:bg-gray-700 flex flex-col max-h-[90%] p-2"
               onClick={(e) => e.stopPropagation()} // Prevent click event from closing modal
               variants={modalVariants}
             >
@@ -274,36 +274,36 @@ const ProjectCard: React.FC<Project> = ({
               >
                 <Close />
               </IconButton>
-
-              {details && details?.length > 0 ? (
-                details.map((section, sectionIndex) => (
-                  <React.Fragment key={sectionIndex}>
-                    <Typography className="text-xl mb-2">
-                      {section.title}
-                    </Typography>
-                    <ImageList
-                      sx={{ width: 500, height: 450 }}
-                      cols={3}
-                      rowHeight={180}
-                    >
-                      {section.galleries.map((item, imageIndex) => (
-                        <ImageListItem key={imageIndex}>
-                          <Image
-                            src={item}
-                            alt={`Gallery image ${imageIndex + 1}`}
-                            width={164}
-                            height={180}
-                          />
-                        </ImageListItem>
-                      ))}
-                    </ImageList>
-                  </React.Fragment>
-                ))
-              ) : (
-                <ComingSoon />
-              )}
+              <div className="p-6 overflow-y-auto">
+                {details && details?.length > 0 ? (
+                  details.map((section, sectionIndex) => (
+                    <div key={sectionIndex} className="my-4">
+                      <Typography className="text-md mb-2">
+                        {section.title}
+                      </Typography>
+                      <ImageList
+                        cols={section.display === 'row' ? 1: 3}
+                        // rowHeight={180}
+                      >
+                        {section.galleries.map((item, imageIndex) => (
+                          <ImageListItem key={imageIndex}>
+                            <Image
+                              src={item}
+                              alt={`Gallery image ${imageIndex + 1}`}
+                              width={164}
+                              height={180}
+                              className={section.display === 'row' ? 'w-full h-full' : ''}
+                            />
+                          </ImageListItem>
+                        ))}
+                      </ImageList>
+                    </div>
+                  ))
+                ) : (
+                  <ComingSoon />
+                )}
+              </div>
             </motion.div>
-            d
           </motion.div>
         )}
       </>
