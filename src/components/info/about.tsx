@@ -1,12 +1,11 @@
 import { Grid, Typography } from "@mui/material";
 import ISTJ from "./mbti";
-import { useState } from "react";
+import { useState, forwardRef, Ref } from "react";
 import Fact from "./fact";
 import Image from "next/image";
 import { PieChart, pieArcLabelClasses } from "@mui/x-charts/PieChart";
-import { Element } from "react-scroll";
 
-export default function About() {
+const About = forwardRef<HTMLDivElement>((_, ref) => {
   const Hobbies = () => {
     return (
       <div className="flex items-center h-full w-full">
@@ -103,7 +102,7 @@ export default function About() {
   const [cardOrder, setCardOrder] = useState(cards);
 
   return (
-    <Element name="about">
+    <div ref={ref}>
       <section className="flex items-center bg-white dark:bg-black justify-between p-6 md:p-12">
         <div className="w-full">
           <h3 className="text-2xl font-bold mb-6">About Me</h3>
@@ -151,6 +150,8 @@ export default function About() {
           </Grid>
         </div>
       </section>
-    </Element>
+    </div>
   );
-}
+});
+
+export default About;

@@ -34,18 +34,20 @@ export default function Expertise() {
   const SkillComponent = ({ item }: { item: Skill }) => {
     return (
       <div className="flex flex-col items-center mx-4">
-        <div className="relative h-20 w-20">
+        <div className="relative h-20 w-20 flex justify-center items-center p-2 dark:bg-white rounded-full dark:overflow-hidden">
           {item.image ? (
             <Image
               src={item.image}
               alt="Skill Logo"
-              width="0"
-              height="0"
+              width={100} // You can adjust this value
+              height={100} // You can adjust this value
               sizes="100vw"
-              className="w-full h-auto"
+              className="object-contain w-auto h-full"
             />
           ) : (
-            item.icon // Render the icon directly
+            <div className="dark:text-black rounded-full overflow-hidden">
+              { item.icon }
+              </div>
           )}
         </div>
         <p className="mt-4 text-sm font-bold">{item.description}</p>
@@ -82,7 +84,7 @@ export default function Expertise() {
                     <Stack
                       direction="row"
                       spacing={1}
-                      className="my-2"
+                      className="my-2 justify-center"
                       sx={{ flexWrap: "wrap", columnGap: 0.5, rowGap: 1 }}
                     >
                       {skills
@@ -119,14 +121,20 @@ export default function Expertise() {
             className="rounded-xl"
             fullWidth
           >
-            <div className="window dark:bg-gray-700" style={{height: state.mobile ? '650px' : undefined}}>
-              <nav className="tabNav dark:border-b dark:border-black" style={{height: state.mobile ? '30%' : undefined}}>
+            <div
+              className="window dark:bg-gray-700"
+              style={{ height: state.mobile ? "650px" : undefined }}
+            >
+              <nav
+                className="tabNav dark:border-b dark:border-black"
+                style={{ height: state.mobile ? "30%" : undefined }}
+              >
                 <Reorder.Group
                   as="ul"
-                  axis={state.mobile ? 'y' : 'x'}
+                  axis={state.mobile ? "y" : "x"}
                   onReorder={setTabs}
                   className="tabs"
-                  style={{flexDirection: state.mobile ? 'column' : 'row'}}
+                  style={{ flexDirection: state.mobile ? "column" : "row" }}
                   values={tabs}
                 >
                   <AnimatePresence initial={false}>

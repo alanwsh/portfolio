@@ -6,10 +6,13 @@ import RecentProjects from "@/components/info/recentProjects";
 import About from "@/components/info/about";
 
 export default function Home() {
+
+  const aboutRef = React.useRef(null);
+
   return (
     <>
-      <Welcome />
-      <About />
+      <Welcome aboutRef={aboutRef}/>
+      <About ref={aboutRef} />
       <Expertise />
       <RecentProjects />
     </>
