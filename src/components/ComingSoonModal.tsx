@@ -18,7 +18,7 @@ export default function ComingSoonModal() {
       onClose={() => {
         setState((prev) => ({ ...prev, comingSoon: false }));
       }}
-      sx={{ zIndex: 1400, height: "100%" }}
+      sx={{ zIndex: 999, height: "100%" }}
       maxWidth="sm"
       fullWidth
     >

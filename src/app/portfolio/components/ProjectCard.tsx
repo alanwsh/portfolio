@@ -259,7 +259,7 @@ const ProjectCard: React.FC<Project> = ({
             initial="hidden"
             animate={controls}
             exit="exit"
-            style={{ zIndex: 999999 }}
+            style={{ zIndex: 999 }}
           >
             <motion.div
               className="p-8 rounded-lg bg-white dark:bg-gray-700 flex flex-col max-h-[75%]"

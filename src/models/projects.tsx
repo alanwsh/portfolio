@@ -26,12 +26,12 @@ export const Projects: Project[] = [
     name: 'Fight zone',
     title: "Fitness Franchise Management Solutions",
     subtitle:
-      "We developed comprehensive software solutions, including websites and mobile applications, for a fitness brand with multiple franchises in Singapore. Our solutions support various modules such as CRM, timesheet payroll, commission management, and scheduling for shifts and classes.",
+      "A fitness brand with multiple franchises in Singapore.We developed websites and mobile applications supporting various modules such as CRM, timesheet payroll, commission management, and scheduling for shifts and classes.",
     link: "https://www.fightzonesg.com/",
     image:
       "https://www.fightzonesg.com/wp-content/uploads/2021/03/fz-favicon.png",
     categories: [1, 2, 3, 4],
-    contributions: "Implemented integrations with various payment gateways including Ezypay and Stripe. Developed a segmentation module for targeting marketing emails and notifications to specific user groups. Integrated AWS IoT Core to enable gate access upon user entry through system. Designed and implemented business functionalities for the gym industry, such as membership suspension and termination.",
+    contributions: "Implemented integrations with various payment gateways and AWS IOT Core. Developed broadcasting module to send marketing content to clients. Designed and implemented business functionalities according to requirements, such as membership suspension and termination.",
     details: [
       // {
       //   title: "Admin Backoffice",

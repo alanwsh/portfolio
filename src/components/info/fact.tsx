@@ -16,7 +16,7 @@ const Fact: React.FC<CardProps> = ({ children, index }) => {
       whileHover={{ scale: 1.2 }}
       className="card bg-white dark:bg-gray-700 rounded-lg shadow-lg p-4 flex flex-col px-8 w-full"
       style={{
-        zIndex: isHovered ? 1000 : 100 - index,
+        zIndex: isHovered ? 9 : 9 - index,
         marginLeft: isDesktop ? index * -20 : '',
       }}
       onMouseEnter={() => setIsHovered(true)}

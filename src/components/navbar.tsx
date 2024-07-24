@@ -190,7 +190,7 @@ export default function NavBar() {
         }
       )}
       aria-label="Global"
-      style={{ position: "sticky", top: 0, zIndex: 9999 }}
+      style={{ position: "sticky", top: 0, zIndex: 99 }}
     >
       <div className="flex">
         <Link href="/" className="-m-1.5 p-1.5 flex items-center">
@@ -254,7 +254,7 @@ export default function NavBar() {
                 id="basic-menu"
                 anchorEl={anchorEl}
                 open={open}
-                sx={{ zIndex: 10000 }}
+                sx={{ zIndex: 99 }}
                 onClose={_handleClose}
                 MenuListProps={{
                   "aria-labelledby": "basic-button",
@@ -304,13 +304,23 @@ export default function NavBar() {
         open={isMenuOpen}
         onClose={toggleMenu}
         anchor="right"
-        hideBackdrop={true}
-        disableScrollLock={true}
-        style={{ zIndex: 99999 }}
+        ModalProps={{
+          keepMounted: true, // Better open performance on mobile.
+        }}
+        style={{ zIndex: 99 }}
       >
         <Box
           onKeyDown={toggleMenu}
-          className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white dark:bg-black px-6 py-6 sm:max-w-sm"
+          className="bg-white dark:bg-black px-6 py-6 sm:max-w-sm"
+          sx={{
+            position: "fixed",
+            top: 0,
+            right: 0,
+            bottom: 0,
+            width: "100%",
+            maxWidth: "sm",
+            overflowY: "auto",
+          }}
         >
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center justify-between">
