@@ -38,7 +38,6 @@ export const AppContextProvider: React.FC<{ children: React.ReactNode }> = ({
     const darkMode = darkModeFromCookie === undefined
       ? darkModeMediaQuery.matches
       : darkModeFromCookie === "true";
-    console.log('dark', darkMode)
     setState((prevState) => ({
       ...prevState,
       dark: darkMode,

@@ -39,8 +39,10 @@ export default function Expertise() {
             <Image
               src={item.image}
               alt="Skill Logo"
-              layout="fill"
-              objectFit="contain"
+              width="0"
+              height="0"
+              sizes="100vw"
+              className="w-full h-auto"
             />
           ) : (
             item.icon // Render the icon directly
@@ -63,14 +65,14 @@ export default function Expertise() {
                   <Grid xs={12} md={4} item className="flex items-center">
                     <Image
                       src={exp.image}
-                      width={500}
                       alt="image"
-                      height={500}
-                      layout="responsive"
-                      objectFit="contain"
+                      width="0"
+                      height="0"
+                      sizes="100vw"
+                      className="w-full h-auto rounded-md"
                     />
                   </Grid>
-                  <Grid xs={12} md={8} item className="px-2 py-4">
+                  <Grid xs={12} md={8} item className="p-4 pl-6">
                     <Typography variant="h6" className="font-bold">
                       {exp.title}
                     </Typography>

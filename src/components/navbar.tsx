@@ -172,6 +172,7 @@ export default function NavBar() {
         {routes.map((route, index) => {
           return route.href || route.onClick ? (
             <Button
+              key={index}
               className="text-md font-semibold leading-6 text-gray-900 dark:text-white"
               style={{ textTransform: "none" }}
               onClick={() => {
@@ -289,8 +290,8 @@ export default function NavBar() {
           </div>
           <List>
             {routes.map((route, index) => (
-              <>
-                <ListItem key={index} disablePadding>
+              <div key={index}>
+                <ListItem disablePadding>
                   <ListItemButton
                     onClick={() => {
                       _handleMenuClick(index);
@@ -322,7 +323,7 @@ export default function NavBar() {
                   </Collapse>
                 )}
                 <Divider />
-              </>
+              </div>
             ))}
             <ListItem>
               <ThemeToggle />

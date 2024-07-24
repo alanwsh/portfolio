@@ -10,7 +10,6 @@ interface CardProps {
 const Fact: React.FC<CardProps> = ({ children, index }) => {
   const [isHovered, setIsHovered] = useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
-  console.log('fact index', index)
   return (
     <motion.button
       whileHover={{ scale: 1.2 }}

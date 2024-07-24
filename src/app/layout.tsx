@@ -8,12 +8,15 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import { Providers } from "./provider";
 import ClientLayout from "./clientLayout";
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Portfolio - Alan",
+  icons: {
+    icon: '/logo.png'
+  },
 };
+
 
 export default function RootLayout({
   children,

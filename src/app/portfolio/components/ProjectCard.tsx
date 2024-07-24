@@ -15,7 +15,7 @@ import { motion, useAnimation } from "framer-motion";
 import { skills } from "@/models/skills";
 
 import { Project } from "@/models/projects";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { Close } from "@mui/icons-material";
 import IconButton from "@mui/material/IconButton";
@@ -117,6 +117,12 @@ const ProjectCard: React.FC<Project> = ({
       controls.start("hidden");
     }
   }, [seeDetails, controls]);
+
+  const _handleOverlayClick = () => {
+    if(state.mobile){
+      setIsHovered(prev => !prev);
+    }
+  }
   return (
     <CardContainer>
       <motion.div
@@ -134,8 +140,9 @@ const ProjectCard: React.FC<Project> = ({
           alignItems: "center",
           height: 400,
         }}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+        onMouseEnter={() => !state.mobile && setIsHovered(true)}
+        onMouseLeave={() => !state.mobile && setIsHovered(false)}
+        onClick={_handleOverlayClick}
       >
         <div
           style={{
@@ -243,7 +250,8 @@ const ProjectCard: React.FC<Project> = ({
             className="px-9 text-lg mt-3"
             style={{ borderRadius: 20, textTransform: "none" }}
             size={state.mobile ? "small" : "large"}
-            onClick={() => setSeeDetails(true)}
+            disabled={!isHovered}
+            onClick={e => {e.stopPropagation(); setSeeDetails(true)}}
           >
             See More
           </Button>
@@ -290,9 +298,10 @@ const ProjectCard: React.FC<Project> = ({
                             <Image
                               src={item}
                               alt={`Gallery image ${imageIndex + 1}`}
-                              width={164}
-                              height={180}
-                              className={section.display === 'row' ? 'w-full h-full' : ''}
+                              width="0"
+                              height="0"
+                              sizes="100vw"
+                              className="w-full h-auto"
                             />
                           </ImageListItem>
                         ))}
