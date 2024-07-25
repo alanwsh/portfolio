@@ -64,6 +64,7 @@ const About = forwardRef<HTMLDivElement>((_, ref) => {
         }}
         width={undefined}
         height={300}
+        onItemClick={() => {}}
         slotProps={{
           legend: {
             direction: "row",
