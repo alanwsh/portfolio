@@ -11,10 +11,7 @@ import ClientLayout from "./clientLayout";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Portfolio - Alan",
-  icons: {
-    icon: '/logo.png'
-  },
+  title: "Portfolio - Alan"
 };
 
 

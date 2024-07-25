@@ -201,6 +201,7 @@ export default function NavBar() {
                   MenuListProps={{
                     "aria-labelledby": "basic-button",
                   }}
+                  disableScrollLock={true}
                 >
                   {route.menu?.list.map((menu: MenuItemType, i: number) => (
                     <Link href={menu.href} passHref key={i}>

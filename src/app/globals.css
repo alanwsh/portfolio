@@ -129,6 +129,7 @@ li {
     overflow-y: scroll; /* Enable scrolling */
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
+    overflow-x: hidden;
   }
 
   html::-webkit-scrollbar {
@@ -141,5 +142,5 @@ html,body
     height: 100%;
     margin: 0px;
     padding: 0px;
-    overflow-x: hidden; 
+ 
 }
