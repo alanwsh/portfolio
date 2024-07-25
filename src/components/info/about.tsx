@@ -44,35 +44,37 @@ const About = forwardRef<HTMLDivElement>((_, ref) => {
 
   const DISC = () => {
     return (
-      <PieChart
-        margin={{ top: 50, left: 50, right: 50 }}
-        series={[
-          {
-            arcLabel: (item) => item.value,
-            data: [
-              { id: 0, value: 42, label: "Dominance" },
-              { id: 1, value: 39, label: "Steadiness" },
-              { id: 2, value: 10, label: "Influence" },
-              { id: 3, value: 9, label: "Compliance" },
-            ],
-          },
-        ]}
-        sx={{
-          [`& .${pieArcLabelClasses.root}`]: {
-            fill: "white",
-          },
-        }}
-        width={undefined}
-        height={300}
-        onItemClick={() => {}}
-        slotProps={{
-          legend: {
-            direction: "row",
-            position: { vertical: "top", horizontal: "middle" },
-            padding: 0,
-          },
-        }}
-      />
+      <div className="w-full pointer-events-none md-pointer-events-auto">
+        <PieChart
+          margin={{ top: 50, left: 50, right: 50 }}
+          series={[
+            {
+              arcLabel: (item) => item.value,
+              data: [
+                { id: 0, value: 42, label: "Dominance" },
+                { id: 1, value: 39, label: "Steadiness" },
+                { id: 2, value: 10, label: "Influence" },
+                { id: 3, value: 9, label: "Compliance" },
+              ],
+            },
+          ]}
+          sx={{
+            [`& .${pieArcLabelClasses.root}`]: {
+              fill: "white",
+            },
+          }}
+          width={undefined}
+          height={300}
+          onItemClick={() => {}}
+          slotProps={{
+            legend: {
+              direction: "row",
+              position: { vertical: "top", horizontal: "middle" },
+              padding: 0,
+            },
+          }}
+        />
+      </div>
     );
   };
   const cards = [
@@ -154,5 +156,5 @@ const About = forwardRef<HTMLDivElement>((_, ref) => {
     </div>
   );
 });
-About.displayName = 'About;'
+About.displayName = "About;";
 export default About;
