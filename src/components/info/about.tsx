@@ -1,11 +1,11 @@
 import { Grid, Typography } from "@mui/material";
 import ISTJ from "./mbti";
-import { useState, RefObject } from "react";
+import { useState, forwardRef, Ref } from "react";
 import Fact from "./fact";
 import Image from "next/image";
 import { PieChart, pieArcLabelClasses } from "@mui/x-charts/PieChart";
 
-export default function About({ ref } : { ref: RefObject<HTMLDivElement>}){
+const About = forwardRef<HTMLDivElement>((_, ref) => {
   const Hobbies = () => {
     return (
       <div className="flex items-center h-full w-full">
@@ -152,4 +152,6 @@ export default function About({ ref } : { ref: RefObject<HTMLDivElement>}){
       </section>
     </div>
   );
-};
+});
+About.displayName = 'About;'
+export default About;
