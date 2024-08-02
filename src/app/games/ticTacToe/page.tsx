@@ -1,9 +1,6 @@
 "use client";
 import { Circle, Game, Player, Times } from "@/models/ticTacToe";
-import {
-  Face,
-  Settings,
-} from "@mui/icons-material";
+import { Face, Settings } from "@mui/icons-material";
 import {
   AppBar,
   Button,
@@ -22,6 +19,30 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 
 export default function TicTacToe() {
+  useEffect(() => {
+    const mainContainer = document.getElementById("main-container");
+
+    if (mainContainer) {
+      // Set the background gradient on the main-container div
+      mainContainer.style.backgroundImage =
+        "linear-gradient(-180deg, rgba(255,255,255,0.50) 0%, rgba(0,0,0,0.50) 100%)";
+      mainContainer.style.backgroundSize = "cover";
+      mainContainer.style.backgroundRepeat = "no-repeat";
+      mainContainer.style.height = "100vh"; // Ensure it takes full viewport height if needed
+      mainContainer.style.margin = "0";
+    }
+
+    // Cleanup the background gradient when the component is unmounted
+    return () => {
+      if (mainContainer) {
+        mainContainer.style.backgroundImage = "";
+        mainContainer.style.backgroundSize = "";
+        mainContainer.style.backgroundRepeat = "";
+        mainContainer.style.height = "";
+        mainContainer.style.margin = "";
+      }
+    };
+  }, []);
   const [players, setPlayers] = useState<Player[]>([
     { id: 1, color: "primary", icon: <Circle /> },
     {
@@ -212,13 +233,13 @@ export default function TicTacToe() {
                 {winner && (
                   <div className="mt-[10%]">
                     <Typography variant="h6" color="white">
-                        {
-                            winner === 'draw' ? "It's a draw!" : `Player ${winner.id} wins!`
-                        }
+                      {winner === "draw"
+                        ? "It's a draw!"
+                        : `Player ${winner.id} wins!`}
                     </Typography>
                     <Button
                       variant="outlined"
-                      className="mt-2 rounded-full text-white border-white px-8 hover:border-white"
+                      className="mt-2 rounded-full text-white border-white px-8 hover:border-white hover:bg-white hover:text-black"
                       onClick={_restartGame}
                     >
                       Restart

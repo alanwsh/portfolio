@@ -37,7 +37,7 @@ export default function ClientLayout({
   return (
     <ThemeProvider theme={darkTheme}>
       <body className={darkTheme.palette.mode}>
-        <div className="dark:text-white bg-gray-100 dark:bg-black" style={{minHeight: '100vh'}}>
+        <div className="dark:text-white bg-gray-100 dark:bg-black" style={{minHeight: '100vh'}} id="main-container">
         <NavBar />
         {children}
         </div>

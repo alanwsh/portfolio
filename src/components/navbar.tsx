@@ -18,6 +18,8 @@ import Link from "next/link";
 import {
   Box,
   Collapse,
+  Dialog,
+  DialogContent,
   Divider,
   Drawer,
   List,
@@ -25,10 +27,12 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Typography,
 } from "@mui/material";
 import { useAppContext } from "@/context/app";
 import classNames from "classnames";
 import ThemeToggle from "./ThemeToggle";
+import Dock from "./animation/Dock";
 
 export default function NavBar() {
   const router = useRouter();
@@ -57,6 +61,7 @@ export default function NavBar() {
   };
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [dockModal, setDockModal] = useState(false);
   const { state, setState } = useAppContext();
 
   const toggleMenu = () => {
@@ -89,11 +94,27 @@ export default function NavBar() {
     {
       title: "Mini Games",
       onClick: () => {
-        setState((prev) => ({ ...prev, comingSoon: true }));
+        setDockModal(true);
+        // setState((prev) => ({ ...prev, comingSoon: true }));
       },
     },
   ]);
   const open = Boolean(anchorEl);
+
+  const _onGameClick = (href: string) => {
+    router.push(href);
+    setDockModal(false);
+  }
+
+  const games = [{
+    onClick: () => { _onGameClick('/games/ticTacToe') },
+    icon: '/tic-tac-toe.png',
+    name: 'Tic Tac Toe'
+  }, {
+    onClick: () => { _onGameClick('/games/hangman') },
+    icon: '/hangman.png',
+    name: 'Hangman'
+  }];
 
   const _handleClose = () => {
     setAnchorEl(null);
@@ -241,8 +262,8 @@ export default function NavBar() {
         anchor="right"
         PaperProps={{
           sx: {
-            width: '100%'
-          }
+            width: "100%",
+          },
         }}
         ModalProps={{
           keepMounted: true, // Better open performance on mobile.
@@ -339,6 +360,21 @@ export default function NavBar() {
           </List>
         </Box>
       </Drawer>
+      <Dialog
+        open={dockModal}
+        keepMounted
+        onClose={() => {
+          setDockModal(false);
+        }}
+        sx={{ zIndex: 999, height: "100%" }}
+        maxWidth="sm"
+        fullWidth
+      >
+        <DialogContent className="flex flex-col justify-center items-center pt-12 pb-10">
+          <Typography variant="h6" className="pb-14 font-bold">Mini Games</Typography>
+          <Dock items={games}/>
+        </DialogContent>
+      </Dialog>
     </>
   );
 }
