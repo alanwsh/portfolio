@@ -33,6 +33,7 @@ import { useAppContext } from "@/context/app";
 import classNames from "classnames";
 import ThemeToggle from "./ThemeToggle";
 import Dock from "./animation/Dock";
+import { games } from "@/models/game";
 
 export default function NavBar() {
   const router = useRouter();
@@ -106,15 +107,7 @@ export default function NavBar() {
     setDockModal(false);
   }
 
-  const games = [{
-    onClick: () => { _onGameClick('/games/ticTacToe') },
-    icon: '/tic-tac-toe.png',
-    name: 'Tic Tac Toe'
-  }, {
-    onClick: () => { _onGameClick('/games/hangman') },
-    icon: '/hangman.png',
-    name: 'Hangman'
-  }];
+  const GamesList = games.map(game => ({...game, onClick: () => { _onGameClick(game.href) }}))
 
   const _handleClose = () => {
     setAnchorEl(null);
@@ -372,7 +365,7 @@ export default function NavBar() {
       >
         <DialogContent className="flex flex-col justify-center items-center pt-12 pb-10">
           <Typography variant="h6" className="pb-14 font-bold">Mini Games</Typography>
-          <Dock items={games}/>
+          <Dock items={GamesList}/>
         </DialogContent>
       </Dialog>
     </>

@@ -1,3 +1,4 @@
+"use client";
 import { Game } from "@/models/game";
 import {
   MotionValue,
