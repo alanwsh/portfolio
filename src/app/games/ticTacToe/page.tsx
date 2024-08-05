@@ -17,6 +17,7 @@ import React, { useEffect, useState } from "react";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import RestartAlt from "@mui/icons-material/RestartAlt";
 
 export default function TicTacToe() {
   const [players, setPlayers] = useState<Player[]>([
@@ -57,6 +58,7 @@ export default function TicTacToe() {
   const _restartGame = () => {
     setBoxes(Game);
     setWinner(null);
+    setCurrentPlayer(players[0]);
   };
 
   useEffect(() => {
@@ -109,21 +111,21 @@ export default function TicTacToe() {
   return (
     <Grid container justifyContent="center" className="mt-4">
       <div className="flex items-center">
-        <Typography variant="h4">Tic Tac Toe</Typography>
+        <Typography variant="h4" className="mr-2">Tic Tac Toe</Typography>
         <Image
           src="/tic-tac-toe.png"
-          width={80}
-          height={80}
+          width={50}
+          height={50}
           alt="Tic Tac Toe"
         />
       </div>
       <Grid container justifyContent="center" className="mt-8">
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={6} sx={{ px: { xs: 3, md: 0 } }}>
           <AppBar position="static" className="mb-4 rounded-xl bg-gray-700">
-            <Toolbar>
+            <Toolbar className="flex-col md:flex-row gap-4 md:gap-0 py-4 md:py-0">
               <Button
                 variant="outlined"
-                className="text-white border-white hover:border-white rounded-xl"
+                className="text-white border-white hover:border-white rounded-xl hidden md:flex"
                 startIcon={<RestartAltIcon />}
                 onClick={_restartGame}
               >
@@ -147,10 +149,10 @@ export default function TicTacToe() {
                   />
                 </div>
                 <IconButton
-                  className="text-white border-white hover:border-white rounded-xl"
+                  className="text-white border-white hover:border-white rounded-xl md:hidden"
                   onClick={_restartGame}
                 >
-                  <Settings />
+                  <RestartAlt />
                 </IconButton>
               </div>
             </Toolbar>
@@ -207,7 +209,7 @@ export default function TicTacToe() {
                 }}
               >
                 {winner && (
-                  <div className="mt-[10%]">
+                  <div className="mt-[35%] md:mt-[20%]">
                     <Typography variant="h6" color="white">
                       {winner === "draw"
                         ? "It's a draw!"

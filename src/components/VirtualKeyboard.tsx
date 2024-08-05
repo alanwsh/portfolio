@@ -10,7 +10,7 @@ export default function VirtualKeyboard({ onKeyPress, charactersOnly = false, di
         ['Z', 'X', 'C', 'V', 'B', 'N', 'M'],
     ];
 
-    const keyButtonClass = 'p-3 px-4 cursor-pointer border-white text-white hover:border-white relative overflow-hidden min-w-[47px]';
+    const keyButtonClass = 'py-2 px-1 cursor-pointer border-white text-white hover:border-white relative overflow-hidden min-w-[25px] sm:min-w-[47] md:px-4 md:py-3';
     const keyOverlayClass = 'absolute inset-0 bg-white opacity-0 hover:opacity-50 transition-opacity z-10';
 
     const _handleClick = (key: string) => {

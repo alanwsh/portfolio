@@ -50,9 +50,9 @@ export default function Hangman() {
                     className="rounded-full ml-2" />
             </div>
             <Grid container justifyContent="center" className="mt-8">
-                <Grid item>
+                <Grid item xs={12} md={6} sx={{ px: { xs: 3, md: 0 } }}>
                     <AppBar position="static" className="mb-4 rounded-xl bg-gray-700">
-                        <Toolbar>
+                        <Toolbar className="flex-col md:flex-row gap-4 md:gap-0 py-4 md:py-0">
                             <Button
                                 variant="outlined"
                                 className="text-white border-white hover:border-white rounded-xl"
