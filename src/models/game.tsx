@@ -1,6 +1,6 @@
 
 export type Game = {
-  onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  onClick: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   icon: string;
   name: string;
 };
