@@ -19,30 +19,6 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 
 export default function TicTacToe() {
-  useEffect(() => {
-    const mainContainer = document.getElementById("main-container");
-
-    if (mainContainer) {
-      // Set the background gradient on the main-container div
-      mainContainer.style.backgroundImage =
-        "linear-gradient(-180deg, rgba(255,255,255,0.50) 0%, rgba(0,0,0,0.50) 100%)";
-      mainContainer.style.backgroundSize = "cover";
-      mainContainer.style.backgroundRepeat = "no-repeat";
-      mainContainer.style.height = "100vh"; // Ensure it takes full viewport height if needed
-      mainContainer.style.margin = "0";
-    }
-
-    // Cleanup the background gradient when the component is unmounted
-    return () => {
-      if (mainContainer) {
-        mainContainer.style.backgroundImage = "";
-        mainContainer.style.backgroundSize = "";
-        mainContainer.style.backgroundRepeat = "";
-        mainContainer.style.height = "";
-        mainContainer.style.margin = "";
-      }
-    };
-  }, []);
   const [players, setPlayers] = useState<Player[]>([
     { id: 1, color: "primary", icon: <Circle /> },
     {
