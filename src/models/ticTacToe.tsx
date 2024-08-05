@@ -1,7 +1,10 @@
 import { motion } from "framer-motion";
+
+type ChipColor = "default" | "primary" | "secondary" | "error" | "info" | "success" | "warning";
+
 export type Player = {
   id: number;
-  color: string;
+  color: ChipColor;
   icon: React.ReactElement;
 };
 

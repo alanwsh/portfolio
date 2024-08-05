@@ -135,7 +135,7 @@ export default function TicTacToe() {
                 <Chip
                   icon={<Face />}
                   label={"Player " + currentPlayer.id}
-                  color={currentPlayer?.color || "default"}
+                  color={currentPlayer?.color || "primary"}
                   className="px-4"
                 />
               </div>
