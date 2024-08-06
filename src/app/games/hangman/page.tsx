@@ -172,7 +172,7 @@ export default function Hangman() {
                         </> : <>
                             <Image src="/comfort.png" width={120} height={120} alt="Almost there" />
                             <Typography variant="body1">
-                                You were close, don't give up!
+                            You were close, don&apos;t give up!
                             </Typography>
                             <Button
                                 variant="outlined"
