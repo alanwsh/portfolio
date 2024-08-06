@@ -6,6 +6,7 @@ export interface AppState {
   comingSoon: boolean;
   mobile?: boolean;
   dark: boolean;
+  loadingCount: number;
 }
 
 const initialState: AppState = {
@@ -13,14 +14,19 @@ const initialState: AppState = {
   mobile: false,
   dark: false,
   comingSoon: false,
+  loadingCount: 0
 };
 
 const AppContext = createContext<{
   state: AppState;
   setState: React.Dispatch<React.SetStateAction<AppState>>;
+  incrementLoading: () => void;
+  decrementLoading: () => void;
 }>({
   state: initialState,
   setState: () => {},
+  incrementLoading: () => {},
+  decrementLoading: () => {},
 });
 
 export const useAppContext = () => useContext(AppContext);
@@ -67,8 +73,19 @@ export const AppContextProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   }, [state.dark, isMounted]);
 
+  useEffect(() => {
+  }, [state.loadingCount])
+
+  const incrementLoading = () => {
+    setState((prevState) => ({ ...prevState, loadingCount: prevState.loadingCount + 1 }));
+  };
+
+  const decrementLoading = () => {
+    setState((prevState) => ({ ...prevState, loadingCount: prevState.loadingCount - 1 }));
+  };
+
   return (
-    <AppContext.Provider value={{ state, setState }}>
+    <AppContext.Provider value={{ state, setState, incrementLoading, decrementLoading }}>
       {children}
     </AppContext.Provider>
   );
