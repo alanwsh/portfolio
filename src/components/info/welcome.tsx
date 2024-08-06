@@ -25,11 +25,6 @@ const Welcome: React.FC<AboutRefProps> = ({ aboutRef }) => {
           from{" "}
           <span className="text-alert font-bold">Kuala Lumpur, Malaysia</span>
         </p>
-        <p className="text-md mb-4">
-          {`I'm a passionate software developer with a focus on creating efficient
-        and scalable solutions expertising in web and mobile application
-        development`}
-        </p>
         <p className="text-md text-gray-700">
           {`Let's connect and create something amazing together!`}
         </p>

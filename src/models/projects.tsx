@@ -27,12 +27,12 @@ export const Projects: Project[] = [
     name: 'Fight zone',
     title: "Fitness Franchise Management Solutions",
     subtitle:
-      "A fitness brand with multiple franchises in Singapore.We developed websites and mobile applications supporting various modules such as CRM, timesheet payroll, commission management, and scheduling for shifts and classes.",
+      "A fitness brand with multiple franchises in Singapore. We developed software supporting various modules such as CRM, timesheet payroll, commission management, and scheduling for shifts and classes.",
     link: "https://www.fightzonesg.com/",
     image:
       "https://www.fightzonesg.com/wp-content/uploads/2021/03/fz-favicon.png",
     categories: [1, 2, 3, 4],
-    contributions: "Implemented integrations with various payment gateways and AWS IOT Core. Developed broadcasting module to send marketing content to clients. Designed and implemented business functionalities according to requirements, such as membership suspension and termination.",
+    contributions: "Integrations with various payment gateways and AWS IOT Core. Developed functionalities such as broadcasting module to send marketing content to clients.",
     details: [
       // {
       //   title: "Admin Backoffice",
@@ -125,7 +125,7 @@ export const Projects: Project[] = [
     color: 'alert',
     title: "A platform to connect house owners with vendors",
     subtitle:
-      "The platform exist to address the myriad of challenges faced by home dwellers. The platform offers a wide range of services, from routine maintenance to emergency repairs, all provided by a curated network of verified and genuine vendors.",
+      "An e-commerce platform which offers a wide range of services, from routine maintenance to emergency repairs, all provided by a curated network of verified and genuine vendors.",
     link: "https://fixx-it.my/",
     image: "https://app.fixx-it.my/images/logo.png",
     contributions: "Developed a complete mobile application and distributed it to various OS app stores. Managed several back-office modules, including chat, residence management, and services (appointments, contracts, etc.), and integrated the PayEx payment gateway",

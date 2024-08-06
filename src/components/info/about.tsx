@@ -112,9 +112,9 @@ const About = forwardRef<HTMLDivElement>((_, ref) => {
           <Grid container spacing={4}>
             <Grid item xs={12} xl={6}>
               <Typography variant="body1">
-                I am a Full Stack Developer based in Kuala Lumpur, Malaysia. I
-                embarked on my programming career in 2021 after earning a degree
-                in Software Engineering from Multimedia University Malaysia.
+                I embarked on my programming career in 2021 after earning a
+                degree in Software Engineering from Multimedia University
+                Malaysia.
               </Typography>
               <Typography variant="body1" className="my-4">
                 With a total of 3 years of experience in the IT software

@@ -119,10 +119,10 @@ const ProjectCard: React.FC<Project> = ({
   }, [seeDetails, controls]);
 
   const _handleOverlayClick = () => {
-    if(state.mobile){
-      setIsHovered(prev => !prev);
+    if (state.mobile) {
+      setIsHovered((prev) => !prev);
     }
-  }
+  };
   return (
     <CardContainer>
       <motion.div
@@ -232,26 +232,29 @@ const ProjectCard: React.FC<Project> = ({
             >
               {subtitle}
             </Typography>
-            <Typography
+            {/* <Typography
               variant={state.mobile ? "caption" : "body2"}
               className="pt-2 md:pt-6 font-bold text-center"
             >
               Highlighted Contributions:
-            </Typography>
+            </Typography> */}
           </div>
-          <Typography
+          {/* <Typography
             variant={state.mobile ? "caption" : "body2"}
             className="font-bold mt-2 text-center"
           >
             {contributions}
-          </Typography>
+          </Typography> */}
           <Button
             variant="contained"
-            className="px-9 text-lg mt-3"
+            className="px-9 text-lg mt-5"
             style={{ borderRadius: 20, textTransform: "none" }}
             size={state.mobile ? "small" : "large"}
             disabled={!isHovered}
-            onClick={e => {e.stopPropagation(); setSeeDetails(true)}}
+            onClick={(e) => {
+              e.stopPropagation();
+              setSeeDetails(true);
+            }}
           >
             See More
           </Button>
@@ -283,14 +286,28 @@ const ProjectCard: React.FC<Project> = ({
                 <Close />
               </IconButton>
               <div className="p-6 overflow-y-auto">
+                <div className="self-start">
+                  <Typography
+                    variant={state.mobile ? "caption" : "h6"}
+                    className="pt-2 md:pt-6 font-bold"
+                  >
+                    Highlighted Contributions:
+                  </Typography>
+                  <Typography
+                    variant={state.mobile ? "caption" : "body1"}
+                    className="mt-2"
+                  >
+                    {contributions}
+                  </Typography>
+                </div>
                 {details && details?.length > 0 ? (
                   details.map((section, sectionIndex) => (
                     <div key={sectionIndex} className="my-4">
-                      <Typography className="text-md mb-2">
+                      <Typography className="text-md mb-2 font-bold">
                         {section.title}
                       </Typography>
                       <ImageList
-                        cols={section.display === 'row' ? 1: 3}
+                        cols={section.display === "row" ? 1 : 3}
                         // rowHeight={180}
                       >
                         {section.galleries.map((item, imageIndex) => (
@@ -309,7 +326,7 @@ const ProjectCard: React.FC<Project> = ({
                     </div>
                   ))
                 ) : (
-                  <ComingSoon />
+                  <ComingSoon text="Screenshots coming soon" />
                 )}
               </div>
             </motion.div>
