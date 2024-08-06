@@ -79,7 +79,7 @@ export default function Hangman() {
   }, [won, lost]);
 
   return (
-    <Grid container justifyContent="center" className="mt-4">
+    <Grid container justifyContent="center" className="py-4">
       <div className="flex items-center">
         <Typography variant="h4">Hangman</Typography>
         <Image

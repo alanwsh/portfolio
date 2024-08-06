@@ -5,7 +5,9 @@ type ChipColor = "default" | "primary" | "secondary" | "error" | "info" | "succe
 export type Player = {
   id: number;
   color: ChipColor;
+  name: string;
   icon: React.ReactElement;
+  bot?: boolean;
 };
 
 export const Game = [

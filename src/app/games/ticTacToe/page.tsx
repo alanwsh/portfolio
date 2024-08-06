@@ -20,33 +20,29 @@ import Image from "next/image";
 import RestartAlt from "@mui/icons-material/RestartAlt";
 
 export default function TicTacToe() {
-  const [players, setPlayers] = useState<Player[]>([
-    { id: 1, color: "primary", icon: <Circle /> },
-    {
-      id: 2,
-      color: "secondary",
-      icon: <Times />,
-    },
-  ]);
+  const [players, setPlayers] = useState<Player[]>([]);
+  const [bot, setBot] = useState<boolean>(false);
 
   const [boxes, setBoxes] = useState<(Player | null)[][]>(Game);
 
   const [currentPlayer, setCurrentPlayer] = useState<Player>(players[0]);
   const [winner, setWinner] = useState<Player | null | "draw">(null);
   const handleClick = (rowIndex: number, colIndex: number) => {
-    // Prevent updating if the cell is already filled
-    if (boxes[rowIndex][colIndex]) return;
+    if (!currentPlayer?.bot) {
+      // Prevent updating if the cell is already filled
+      if (boxes[rowIndex][colIndex]) return;
 
-    const updatedBoxes = boxes.map((row, rIdx) =>
-      row.map((cell, cIdx) =>
-        rIdx === rowIndex && cIdx === colIndex ? currentPlayer : cell
-      )
-    );
+      const updatedBoxes = boxes.map((row, rIdx) =>
+        row.map((cell, cIdx) =>
+          rIdx === rowIndex && cIdx === colIndex ? currentPlayer : cell
+        )
+      );
 
-    setBoxes(updatedBoxes);
-    setCurrentPlayer(
-      currentPlayer.id === players[0].id ? players[1] : players[0]
-    );
+      setBoxes(updatedBoxes);
+      setCurrentPlayer(
+        currentPlayer.id === players[0].id ? players[1] : players[0]
+      );
+    }
   };
 
   const gameVariants = {
@@ -59,6 +55,10 @@ export default function TicTacToe() {
     setBoxes(Game);
     setWinner(null);
     setCurrentPlayer(players[0]);
+  };
+
+  const _handleSwitchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setBot(event.target.checked);
   };
 
   useEffect(() => {
@@ -108,10 +108,130 @@ export default function TicTacToe() {
     }
   }, [boxes]);
 
+  useEffect(() => {
+    if (bot) {
+      setPlayers([
+        { id: 1, color: "primary", name: "Player 1", icon: <Circle /> },
+        {
+          id: 2,
+          color: "warning",
+          name: "Bot",
+          icon: <Times />,
+          bot: true,
+        },
+      ]);
+    } else {
+      setPlayers([
+        { id: 1, color: "primary", name: "Player 1", icon: <Circle /> },
+        {
+          id: 2,
+          name: "Player 2",
+          color: "secondary",
+          icon: <Times />,
+        },
+      ]);
+    }
+  }, [bot]);
+
+  useEffect(() => {
+    _restartGame();
+  }, [players]);
+
+  useEffect(() => {
+    const _checkLineCompletingSoon = (line: (Player | null)[]) => {
+      const opponentPlayer = players.find((p) => p.id !== currentPlayer.id); // Find the opponent
+      if (!opponentPlayer) return null; // Return null if no opponent found
+
+      // Check if there are exactly two of the opponent's symbols and one empty cell
+      if (
+        line.filter((cell) => cell && cell.bot === opponentPlayer.bot)
+          .length === 2 &&
+        line.includes(null)
+      ) {
+        // Find the index of the empty cell
+        const colIndex = line.indexOf(null);
+        return colIndex;
+      }
+
+      return null;
+    };
+
+    const _findBotMove = () => {
+      // Check rows
+      for (let i = 0; i < 3; i++) {
+        const row = boxes[i];
+        const colIndex = _checkLineCompletingSoon(row);
+        if (colIndex !== null) return { row: i, col: colIndex };
+      }
+
+      // Check columns
+      for (let i = 0; i < 3; i++) {
+        const col = boxes.map((row) => row[i]);
+        const rowIndex = _checkLineCompletingSoon(col);
+        if (rowIndex !== null) return { row: rowIndex, col: i };
+      }
+
+      // Check diagonals
+      const diag1 = [boxes[0][0], boxes[1][1], boxes[2][2]];
+      const index1 = _checkLineCompletingSoon(diag1);
+      if (index1 !== null) return { row: index1, col: index1 };
+
+      const diag2 = [boxes[0][2], boxes[1][1], boxes[2][0]];
+      const index2 = _checkLineCompletingSoon(diag2);
+      if (index2 !== null) return { row: index2, col: 2 - index2 };
+
+      return null;
+    };
+
+    const _performNextMove = () => {
+      if (currentPlayer?.bot) {
+
+        const opponent = players.find((p) => p.id !== currentPlayer.id);
+        const move = _findBotMove();
+
+        if (move) {
+          const newBoxes = [...boxes];
+          newBoxes[move.row][move.col] = currentPlayer;
+          setBoxes(newBoxes);
+          setCurrentPlayer(opponent!);
+        } else {
+          // If no blocking move, make a random move
+          const emptyCells = [];
+          for (let r = 0; r < 3; r++) {
+            for (let c = 0; c < 3; c++) {
+              if (!boxes[r][c]) {
+                emptyCells.push({ row: r, col: c });
+              }
+            }
+          }
+
+          if (emptyCells.length > 0) {
+            const randomMove =
+              emptyCells[Math.floor(Math.random() * emptyCells.length)];
+            const newBoxes = [...boxes];
+            newBoxes[randomMove.row][randomMove.col] = currentPlayer;
+            setBoxes(newBoxes);
+            setCurrentPlayer(opponent!);
+          }
+        }
+      }
+    };
+
+    if (currentPlayer?.bot && !winner) {
+      const timer = setTimeout(() => {
+        _performNextMove();
+      }, 1000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [currentPlayer, boxes, players, winner]);
+
   return (
-    <Grid container justifyContent="center" className="mt-4">
+    <Grid container justifyContent="center" className="py-4">
       <div className="flex items-center">
-        <Typography variant="h4" className="mr-2">Tic Tac Toe</Typography>
+        <Typography variant="h4" className="mr-2">
+          Tic Tac Toe
+        </Typography>
         <Image
           src="/tic-tac-toe.png"
           width={50}
@@ -134,7 +254,7 @@ export default function TicTacToe() {
               <div className="flex-1 text-center">
                 <Chip
                   icon={<Face />}
-                  label={"Player " + currentPlayer.id}
+                  label={currentPlayer?.name}
                   color={currentPlayer?.color || "primary"}
                   className="px-4"
                 />
@@ -142,8 +262,14 @@ export default function TicTacToe() {
               <div className="flex">
                 <div className="text-white border-white rounded-xl flex">
                   <FormControlLabel
-                    value="end"
-                    control={<Switch color="primary" />}
+                    value={bot}
+                    control={
+                      <Switch
+                        color="primary"
+                        checked={bot}
+                        onChange={_handleSwitchChange}
+                      />
+                    }
                     label="Bot"
                     labelPlacement="end"
                   />
@@ -213,7 +339,7 @@ export default function TicTacToe() {
                     <Typography variant="h6" color="white">
                       {winner === "draw"
                         ? "It's a draw!"
-                        : `Player ${winner.id} wins!`}
+                        : `${winner?.name} wins!`}
                     </Typography>
                     <Button
                       variant="outlined"

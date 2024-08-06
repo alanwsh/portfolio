@@ -18,15 +18,15 @@ const LoadingModal = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          minWidth: "20vw", // Set Dialog width to 50%
+          minWidth: "20vw",
         },
       }}
     >
       <DialogContent
         sx={{
-          padding: 0, // Remove default padding
-          width: "100%", // Ensure full width of DialogContent
-          height: "auto", // Adjust height to content
+          padding: 0,
+          width: "100%",
+          height: "auto",
         }}
       >
         <Box
@@ -34,17 +34,17 @@ const LoadingModal = () => {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            width: "100%", // Ensure full width of Box
-            height: "auto", // Adjust height to content
+            width: "100%",
+            height: "auto",
           }}
         >
           <div className="flex flex-col items-center p-6">
             <Image
               src="https://media.tenor.com/I3RjM4xQO0kAAAAi/monitors-typing.gif"
               alt="Loading..."
-              layout="responsive" // Ensure the image adjusts to container size
-              width={300} // Provide a width for responsive scaling
-              height={300} // Provide a height for responsive scaling
+              layout="responsive"
+              width={300}
+              height={300}
             />
             <div className="flex">
               <Typography className="font-bold mr-2">Loading</Typography>

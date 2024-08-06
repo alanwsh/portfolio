@@ -6,7 +6,6 @@ const Footer: React.FC = () => {
   return (
     <Box
       component="footer"
-      className="mt-4"
     >
       <Typography variant="body2" className="bg-gray-700 p-4 text-center text-white">
         © {new Date().getFullYear()} Alan Wong Shou Hong. Some images are from{' '}
