@@ -1,6 +1,6 @@
 import { Grid, Typography } from "@mui/material";
 import ISTJ from "./mbti";
-import { useState, forwardRef, Ref } from "react";
+import React, { useState, forwardRef, Ref } from "react";
 import Fact from "./fact";
 import Image from "next/image";
 import { PieChart, pieArcLabelClasses } from "@mui/x-charts/PieChart";
@@ -77,6 +77,13 @@ const About = forwardRef<HTMLDivElement>((_, ref) => {
       </div>
     );
   };
+
+  type AnimatedCard = {
+    key: string;
+    title: string;
+    content: React.ReactElement;
+  };
+
   const cards = [
     {
       key: "mbti",
@@ -102,7 +109,7 @@ const About = forwardRef<HTMLDivElement>((_, ref) => {
     },
   ];
 
-  const [cardOrder, setCardOrder] = useState([]);
+  const [cardOrder, setCardOrder] = useState<AnimatedCard[]>([]);
 
   return (
     <div ref={ref}>
