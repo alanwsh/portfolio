@@ -1,8 +1,7 @@
 "use client";
-import { Circle, Game, Player, Times } from "@/models/ticTacToe";
+import { Circle, Game, Player, Times, WinningLine } from "@/models/ticTacToe";
 import { Face, Settings } from "@mui/icons-material";
 import {
-  AppBar,
   Button,
   Chip,
   FormControlLabel,
@@ -10,7 +9,6 @@ import {
   IconButton,
   Paper,
   Switch,
-  Toolbar,
   Typography,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
@@ -19,6 +17,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import RestartAlt from "@mui/icons-material/RestartAlt";
 import GameBar from "../components/GameBar";
+import { pick } from 'lodash';
 
 export default function TicTacToe() {
   const [players, setPlayers] = useState<Player[]>([]);
@@ -27,7 +26,7 @@ export default function TicTacToe() {
   const [boxes, setBoxes] = useState<(Player | null)[][]>(Game);
 
   const [currentPlayer, setCurrentPlayer] = useState<Player>(players[0]);
-  const [winner, setWinner] = useState<Player | null | "draw">(null);
+  const [winner, setWinner] = useState<WinningLine | null | "draw">(null);
   const handleClick = (rowIndex: number, colIndex: number) => {
     if (!currentPlayer?.bot) {
       // Prevent updating if the cell is already filled
@@ -65,11 +64,37 @@ export default function TicTacToe() {
   useEffect(() => {
     const checkWinner = (board: (Player | null)[][]) => {
       // Check rows
-      for (let row of board) {
-        if (row[0] && row[0] === row[1] && row[1] === row[2]) {
-          return row[0];
+      for (let i = 0; i < 3; i++) {
+        let top: string;
+
+        switch (i) {
+          case 0:
+            top = "15%";
+            break;
+          case 1:
+            top = "50%";
+            break;
+          case 2:
+            top = "82.5%";
+            break;
+          default:
+            top = "0";
+        }
+        if (
+          board[i][0] &&
+          board[i][0] === board[i][1] &&
+          board[i][1] === board[i][2]
+        ) {
+          return new WinningLine({
+            width: "90%",
+            height: "2px",
+            top,
+            left: "5%",
+            winner: board[i][0],
+          });
         }
       }
+
       // Check columns
       for (let i = 0; i < 3; i++) {
         if (
@@ -77,7 +102,28 @@ export default function TicTacToe() {
           board[0][i] === board[1][i] &&
           board[1][i] === board[2][i]
         ) {
-          return board[0][i];
+          let left: string;
+
+          switch (i) {
+            case 0:
+              left = "16.5%";
+              break;
+            case 1:
+              left = "50%";
+              break;
+            case 2:
+              left = "83.5%";
+              break;
+            default:
+              left = "0";
+          }
+          return new WinningLine({
+            width: "2px",
+            height: "90%",
+            top: "5%",
+            left,
+            winner: board[0][i],
+          });
         }
       }
       // Check diagonals
@@ -86,14 +132,28 @@ export default function TicTacToe() {
         board[0][0] === board[1][1] &&
         board[1][1] === board[2][2]
       ) {
-        return board[0][0];
+        return new WinningLine({
+          width: "2px",
+          height: "120%",
+          top: "-10%",
+          left: "50%",
+          winner: board[0][0],
+          transform: "rotate(-45deg)",
+        });
       }
       if (
         board[0][2] &&
         board[0][2] === board[1][1] &&
         board[1][1] === board[2][0]
       ) {
-        return board[0][2];
+        return new WinningLine({
+          width: "2px",
+          height: "120%",
+          top: "-10%",
+          left: "50%",
+          winner: board[0][2],
+          transform: "rotate(45deg)",
+        });
       }
       // Check for draw
       const isDraw = board.every((row) => row.every((cell) => cell !== null));
@@ -112,23 +172,37 @@ export default function TicTacToe() {
   useEffect(() => {
     if (bot) {
       setPlayers([
-        { id: 1, color: "primary", name: "Player 1", icon: <Circle /> },
+        {
+          id: 1,
+          color: "primary",
+          name: "Player 1",
+          iconColor: '#ff0055',
+          icon: <Circle size={90} />,
+        },
         {
           id: 2,
           color: "warning",
           name: "Bot",
-          icon: <Times />,
+          iconColor: '#00cc88',
+          icon: <Times size={90} />,
           bot: true,
         },
       ]);
     } else {
       setPlayers([
-        { id: 1, color: "primary", name: "Player 1", icon: <Circle /> },
+        {
+          id: 1,
+          color: "primary",
+          name: "Player 1",
+          iconColor: '#ff0055',
+          icon: <Circle size={90} color="#ff0055"/>,
+        },
         {
           id: 2,
           name: "Player 2",
           color: "secondary",
-          icon: <Times />,
+          iconColor: '#00cc88',
+          icon: <Times size={80} color="#00cc88" />,
         },
       ]);
     }
@@ -240,7 +314,7 @@ export default function TicTacToe() {
         />
       </div>
       <Grid container justifyContent="center" className="mt-8">
-        <Grid item xs={12} md={6} sx={{ px: { xs: 3, md: 0 } }}>
+        <Grid item xs={12} md={4} xl={3} sx={{ px: { xs: 3, md: 0 } }}>
           <GameBar
             start={
               <Button
@@ -310,7 +384,7 @@ export default function TicTacToe() {
                           alignItems: "center",
                           justifyContent: "center",
                           border: "1px solid #ccc",
-                          height: "100px",
+                          aspectRatio: 1,
                           cursor: "pointer",
                           fontSize: "2rem",
                         }}
@@ -319,6 +393,14 @@ export default function TicTacToe() {
                         {cell ? cell.icon : null}
                       </Grid>
                     ))}
+                    {winner && winner !== "draw" && (
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        className="absolute"
+                        style={{...pick(winner, ['top', 'left', 'width', 'height', 'transform']), backgroundColor: winner.winner?.iconColor}}
+                      />
+                    )}
                   </Grid>
                 ))}
               </motion.div>
@@ -337,11 +419,11 @@ export default function TicTacToe() {
                 }}
               >
                 {winner && (
-                  <div className="mt-[35%] md:mt-[20%]">
+                  <div className="mt-[35%] md:mt-[40%]">
                     <Typography variant="h6" color="white">
                       {winner === "draw"
                         ? "It's a draw!"
-                        : `${winner?.name} wins!`}
+                        : `${winner?.winner?.name} wins!`}
                     </Typography>
                     <Button
                       variant="outlined"

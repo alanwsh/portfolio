@@ -7,8 +7,27 @@ export type Player = {
   color: ChipColor;
   name: string;
   icon: React.ReactElement;
+  iconColor: string;
   bot?: boolean;
 };
+
+export class WinningLine {
+  width: string;
+  height: string;
+  top: string;
+  left: string;
+  transform?: string;
+  winner: Player | null;
+
+  constructor({ width, height, top, left, winner, transform }: { width: string; height: string; top: string; left: string, winner: Player | null, transform?: string | undefined }) {
+    this.width = width;
+    this.height = height;
+    this.top = top;
+    this.left = left;
+    this.transform = transform;
+    this.winner = winner;
+  }
+}
 
 export const Game = [
   [null, null, null],
@@ -27,19 +46,19 @@ const draw = {
   }),
 };
 
-export const Circle = ({ color }: { color?: string }) => (
+export const Circle = ({ color, size = 80 }: { color?: string, size?: number }) => (
   <motion.svg
-    width="60"
-    height="60"
-    viewBox="0 0 60 60"
+    width={size}
+    height={size}
+    viewBox={`0 0 ${size} ${size}`}
     initial="hidden"
     animate="visible"
     custom={1} // Custom value for this specific animation
   >
     <motion.circle
-      cx="30"
-      cy="30"
-      r="30"
+      cx={size/2}
+      cy={size/2}
+      r={size/2}
       stroke={color || "#ff0055"}
       variants={draw}
       fill="none"
@@ -47,27 +66,27 @@ export const Circle = ({ color }: { color?: string }) => (
   </motion.svg>
 );
 
-export const Times = ({ color }: { color?: string }) => (
+export const Times = ({ color, size = 90 }: { color?: string, size?: number }) => (
   <motion.svg
-    width="50"
-    height="50"
-    viewBox="0 0 50 50"
+    width={size}
+    height={size}
+    viewBox={`0 0 ${size} ${size}`}
     initial="hidden"
     animate="visible"
   >
     <motion.line
       x1="0"
       y1="0"
-      x2="50"
-      y2="50"
+      x2={size}
+      y2={size}
       stroke={color || "#00cc88"}
       variants={draw}
       custom={1} // Duration for the first line
     />
     <motion.line
       x1="0"
-      y1="50"
-      x2="50"
+      y1={size}
+      x2={size}
       y2="0"
       stroke={color || "#00cc88"}
       variants={draw}
