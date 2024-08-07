@@ -19,6 +19,7 @@ import HangmanStepper from "./components/HangmanStepper";
 import { Close } from "@mui/icons-material";
 import { useAppContext } from "@/context/app";
 import DarkButton from "@/components/general/DarkButton";
+import GameBar from "../components/GameBar";
 
 export default function Hangman() {
   const [word, setWord] = useState<string>("Alan".toUpperCase());
@@ -92,38 +93,40 @@ export default function Hangman() {
       </div>
       <Grid container justifyContent="center" className="mt-8">
         <Grid item xs={12} md={6} sx={{ px: { xs: 3, md: 0 } }}>
-          <AppBar position="static" className="mb-4 rounded-xl bg-gray-700">
-            <Toolbar className="flex-col md:flex-row gap-4 md:gap-0 py-4 md:py-0">
-              <Button
-                variant="outlined"
-                className="text-white border-white hover:border-white rounded-xl"
-                startIcon={<RestartAltIcon />}
-                onClick={() => {
-                  won ? _startNewGame() : _restartGame();
-                }}
-              >
-                {won ? "New Game" : "Restart"}
-              </Button>
-              <div className="flex md:ml-auto items-center">
-                <motion.div
-                  key={chances}
-                  initial={{ scale: 2 }}
-                  animate={{ scale: 1 }}
-                  transition={{ duration: 1 }}
+            <GameBar
+              start={
+                <Button
+                  variant="outlined"
+                  className="text-white border-white hover:border-white rounded-xl"
+                  startIcon={<RestartAltIcon />}
+                  onClick={() => {
+                    won ? _startNewGame() : _restartGame();
+                  }}
                 >
-                  <Typography
-                    variant="h4"
-                    className={chances < 2 ? "text-red" : ""}
+                  {won ? "New Game" : "Restart"}
+                </Button>
+              }
+              end={
+                <>
+                  <motion.div
+                    key={chances}
+                    initial={{ scale: 2 }}
+                    animate={{ scale: 1 }}
+                    transition={{ duration: 1 }}
                   >
-                    {chances}
+                    <Typography
+                      variant="h4"
+                      className={chances < 2 ? "text-red" : ""}
+                    >
+                      {chances}
+                    </Typography>
+                  </motion.div>
+                  <Typography variant="caption" className="pl-2">
+                    chances left
                   </Typography>
-                </motion.div>
-                <Typography variant="caption" className="pl-2">
-                  chances left
-                </Typography>
-              </div>
-            </Toolbar>
-          </AppBar>
+                </>
+              }
+            />
           <Paper
             elevation={3}
             style={{ padding: "16px", textAlign: "center" }}
@@ -216,7 +219,11 @@ export default function Hangman() {
               <Typography variant="body1">
                 You were close, don&apos;t give up!
               </Typography>
-              <DarkButton startIcon={<RestartAltIcon />} onClick={_restartGame} outlined>
+              <DarkButton
+                startIcon={<RestartAltIcon />}
+                onClick={_restartGame}
+                outlined
+              >
                 Try Again
               </DarkButton>
             </>

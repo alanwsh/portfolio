@@ -102,7 +102,7 @@ const About = forwardRef<HTMLDivElement>((_, ref) => {
     },
   ];
 
-  const [cardOrder, setCardOrder] = useState(cards);
+  const [cardOrder, setCardOrder] = useState([]);
 
   return (
     <div ref={ref}>

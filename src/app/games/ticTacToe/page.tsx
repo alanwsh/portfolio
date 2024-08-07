@@ -18,6 +18,7 @@ import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import RestartAlt from "@mui/icons-material/RestartAlt";
+import GameBar from "../components/GameBar";
 
 export default function TicTacToe() {
   const [players, setPlayers] = useState<Player[]>([]);
@@ -185,7 +186,6 @@ export default function TicTacToe() {
 
     const _performNextMove = () => {
       if (currentPlayer?.bot) {
-
         const opponent = players.find((p) => p.id !== currentPlayer.id);
         const move = _findBotMove();
 
@@ -241,8 +241,8 @@ export default function TicTacToe() {
       </div>
       <Grid container justifyContent="center" className="mt-8">
         <Grid item xs={12} md={6} sx={{ px: { xs: 3, md: 0 } }}>
-          <AppBar position="static" className="mb-4 rounded-xl bg-gray-700">
-            <Toolbar className="flex-col md:flex-row gap-4 md:gap-0 py-4 md:py-0">
+          <GameBar
+            start={
               <Button
                 variant="outlined"
                 className="text-white border-white hover:border-white rounded-xl hidden md:flex"
@@ -251,15 +251,17 @@ export default function TicTacToe() {
               >
                 Restart
               </Button>
-              <div className="flex-1 text-center">
-                <Chip
-                  icon={<Face />}
-                  label={currentPlayer?.name}
-                  color={currentPlayer?.color || "primary"}
-                  className="px-4"
-                />
-              </div>
-              <div className="flex">
+            }
+            center={
+              <Chip
+                icon={<Face />}
+                label={currentPlayer?.name}
+                color={currentPlayer?.color || "primary"}
+                className="px-4"
+              />
+            }
+            end={
+              <>
                 <div className="text-white border-white rounded-xl flex">
                   <FormControlLabel
                     value={bot}
@@ -280,9 +282,9 @@ export default function TicTacToe() {
                 >
                   <RestartAlt />
                 </IconButton>
-              </div>
-            </Toolbar>
-          </AppBar>
+              </>
+            }
+          />
           <Paper
             elevation={3}
             style={{ padding: "16px", textAlign: "center" }}
